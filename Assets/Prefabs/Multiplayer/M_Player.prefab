@@ -107,7 +107,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3287024004382941497}
-  - component: {fileID: 3287024004382941502}
+  - component: {fileID: 4837029552309263917}
+  - component: {fileID: 8878571310585999459}
+  - component: {fileID: 1965868097568565991}
   m_Layer: 0
   m_Name: M_Player
   m_TagString: Untagged
@@ -131,7 +133,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3287024004382941502
+--- !u!114 &4837029552309263917
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,3 +149,71 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &8878571310585999459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3287024004382941503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe5eacfe9176e74993cefc8a84396a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputHandler: {fileID: 1965868097568565991}
+--- !u!114 &1965868097568565991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3287024004382941503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652a8b9429c957d4fb76597d3779e98d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lookSensitivity: 1
+  _webglLookSensitivityMultiplier: 0.25
+  _triggerAxisThreshold: 0.4
+  _invertYAxis: 0
+  _invertXAxis: 0
+  _movementReference: {fileID: -1680190386980627800, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _lookReference: {fileID: -5630151704836100654, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _jumpReference: {fileID: 5241616228744057928, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _fireReference: {fileID: 1120369429361536294, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _aimReference: {fileID: 752708017236428729, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _sprintReference: {fileID: 3007086605687385938, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _crouchReference: {fileID: -3670531986900612566, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _reloadReference: {fileID: -5999471884032660045, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _SwitchItemMouseReference: {fileID: 1949456297471579656, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _switchItemGamepadReference: {fileID: 7403079563284743137, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _inventoryOneReference: {fileID: -4299052406706024584, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _inventoryTwoReference: {fileID: -1116419095514975554, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _inventoryThreeReference: {fileID: -5327444588342969376, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _inventoryFourReference: {fileID: 2181340470596756519, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _inventoryFiveReference: {fileID: 888960143329277257, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _inventorySixReference: {fileID: 3716774112141228706, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _inventorySevenReference: {fileID: 1296227400926301806, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _inventoryEightReference: {fileID: 2352257829418008396, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
+  _inventoryNineReference: {fileID: -5957364690413162826, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}

@@ -55,6 +55,150 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""4689c364-ed81-400d-a553-e5d19a00c3ed"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""eeee7b6b-e73f-436d-a5f4-58f3f417633f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""b97cf81e-7b63-476e-b4f1-23a4108be7ed"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""721550a1-b1b7-4348-b6a2-9eb0cd167001"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchItemMouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""ca041ea8-7380-43c2-b3dc-9969e39565ae"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchItemGamepad"",
+                    ""type"": ""Button"",
+                    ""id"": ""e22930a9-a79a-4dfb-aaac-95d963bc9780"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""2c3de6a5-32b4-4e08-8f59-05aa62d5c8d2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory_1"",
+                    ""type"": ""Button"",
+                    ""id"": ""38823f9d-a28b-4d4a-9313-8f5811915ab0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory_2"",
+                    ""type"": ""Button"",
+                    ""id"": ""b25e957f-8c21-4cf8-8319-b2176e3cc1ed"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory_3"",
+                    ""type"": ""Button"",
+                    ""id"": ""a8b9d91c-c03e-477c-896a-2e4984e63acf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory_4"",
+                    ""type"": ""Button"",
+                    ""id"": ""67cbc4b1-039b-43c4-9a5f-6edef5868311"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory_5"",
+                    ""type"": ""Button"",
+                    ""id"": ""3b522fae-2e49-464f-9e0e-fd3e182c5247"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory_6"",
+                    ""type"": ""Button"",
+                    ""id"": ""e4d3aed0-69d8-4eaa-b5cc-34bf8eac0eb1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory_7"",
+                    ""type"": ""Button"",
+                    ""id"": ""762e6388-5eef-44cd-b49d-78dd98b68576"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory_8"",
+                    ""type"": ""Button"",
+                    ""id"": ""54949bd9-8676-4b04-9a3b-47482440bbff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory_9"",
+                    ""type"": ""Button"",
+                    ""id"": ""88194493-4905-42c5-b843-d21d66193ff6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -275,6 +419,369 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": ""XR"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79b0fdac-1098-49d6-8aac-58026f387397"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""86293aad-3bd4-46e3-8cf6-1122e782557a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c3cfb3d-d74d-4567-a0eb-a87dd92cf3ec"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78d2172d-20ef-4007-ae06-9fa20b5d0a44"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""36156a06-2a42-499f-bfae-c920abcbdcd0"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""58eac4d7-b0b2-428b-98f9-3dd8e3d67491"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4d60a76b-3a99-4383-aa2b-115835a1c5e0"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2430587f-e61e-4dbb-90d0-6222c6fe0f96"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2881f88c-2f8e-4457-9a61-350dd79e0369"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SwitchItemMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Shoulders"",
+                    ""id"": ""09336bb7-caf5-4343-944f-bcf0857e3a28"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchItemGamepad"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""9a2b1987-2b14-47bb-8359-fe0bc2cd91e7"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchItemGamepad"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""45d7847c-c2eb-4f5c-b60a-a7b624126982"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchItemGamepad"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""404e25fa-eb78-4d38-bb6a-f0b7e95e2589"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""90af6589-0e46-4425-9112-cf9df2130ec3"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ae03c9e-e413-4c4b-abeb-89f2e102c2be"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72902d91-1311-413c-a580-5e9fd9ec7b52"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91e95d76-0a59-48ee-8397-0f9503baf108"",
+                    ""path"": ""<Keyboard>/numpad1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b619bfa8-fc07-4673-afb7-4711c3e9cd8e"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ecb9b08-2b8a-4d3a-955e-a773bfc25054"",
+                    ""path"": ""<Keyboard>/numpad2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c4f5c8a1-0826-4754-8b01-f7eb15711604"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9ca12132-79cf-4e87-a887-16072279d2cf"",
+                    ""path"": ""<Keyboard>/numpad3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""856d0de9-5ea0-467f-a72c-b987435e2dbe"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""583fe1b7-63ab-4c2f-a279-9c8ec62fc500"",
+                    ""path"": ""<Keyboard>/numpad4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d0a4c9f2-20ca-4730-9b24-7db27b23ec3d"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15344f5c-11ef-4190-93ac-2918ec4ca9d8"",
+                    ""path"": ""<Keyboard>/numpad5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aaec279d-82eb-402e-b7e4-3ea42bc022ed"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3ab9d1a-e6b5-4158-8a0d-bf33ac62bcbb"",
+                    ""path"": ""<Keyboard>/numpad6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5fa93288-a856-4273-83fa-a98a93272f62"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c27cdf77-9305-42b9-b602-f7e99f6a86ab"",
+                    ""path"": ""<Keyboard>/numpad7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3169a141-6832-47a6-bcdb-20d9ce52fff4"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5f1cb21b-6595-4d5b-8536-4f5da9801351"",
+                    ""path"": ""<Keyboard>/numpad8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""17909909-24c4-4a97-b9ad-23194d621f6f"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_9"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f58c1a71-b5f7-4d88-80d4-1309668b8ff0"",
+                    ""path"": ""<Keyboard>/numpad9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory_9"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -865,6 +1372,22 @@ namespace UnityEngine.InputSystem
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+            m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+            m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
+            m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+            m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
+            m_Player_SwitchItemMouse = m_Player.FindAction("SwitchItemMouse", throwIfNotFound: true);
+            m_Player_SwitchItemGamepad = m_Player.FindAction("SwitchItemGamepad", throwIfNotFound: true);
+            m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
+            m_Player_Inventory_1 = m_Player.FindAction("Inventory_1", throwIfNotFound: true);
+            m_Player_Inventory_2 = m_Player.FindAction("Inventory_2", throwIfNotFound: true);
+            m_Player_Inventory_3 = m_Player.FindAction("Inventory_3", throwIfNotFound: true);
+            m_Player_Inventory_4 = m_Player.FindAction("Inventory_4", throwIfNotFound: true);
+            m_Player_Inventory_5 = m_Player.FindAction("Inventory_5", throwIfNotFound: true);
+            m_Player_Inventory_6 = m_Player.FindAction("Inventory_6", throwIfNotFound: true);
+            m_Player_Inventory_7 = m_Player.FindAction("Inventory_7", throwIfNotFound: true);
+            m_Player_Inventory_8 = m_Player.FindAction("Inventory_8", throwIfNotFound: true);
+            m_Player_Inventory_9 = m_Player.FindAction("Inventory_9", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -941,6 +1464,22 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Fire;
+        private readonly InputAction m_Player_Jump;
+        private readonly InputAction m_Player_Aim;
+        private readonly InputAction m_Player_Sprint;
+        private readonly InputAction m_Player_Reload;
+        private readonly InputAction m_Player_SwitchItemMouse;
+        private readonly InputAction m_Player_SwitchItemGamepad;
+        private readonly InputAction m_Player_Crouch;
+        private readonly InputAction m_Player_Inventory_1;
+        private readonly InputAction m_Player_Inventory_2;
+        private readonly InputAction m_Player_Inventory_3;
+        private readonly InputAction m_Player_Inventory_4;
+        private readonly InputAction m_Player_Inventory_5;
+        private readonly InputAction m_Player_Inventory_6;
+        private readonly InputAction m_Player_Inventory_7;
+        private readonly InputAction m_Player_Inventory_8;
+        private readonly InputAction m_Player_Inventory_9;
         public struct PlayerActions
         {
             private @InputActions m_Wrapper;
@@ -948,6 +1487,22 @@ namespace UnityEngine.InputSystem
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
+            public InputAction @Jump => m_Wrapper.m_Player_Jump;
+            public InputAction @Aim => m_Wrapper.m_Player_Aim;
+            public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+            public InputAction @Reload => m_Wrapper.m_Player_Reload;
+            public InputAction @SwitchItemMouse => m_Wrapper.m_Player_SwitchItemMouse;
+            public InputAction @SwitchItemGamepad => m_Wrapper.m_Player_SwitchItemGamepad;
+            public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
+            public InputAction @Inventory_1 => m_Wrapper.m_Player_Inventory_1;
+            public InputAction @Inventory_2 => m_Wrapper.m_Player_Inventory_2;
+            public InputAction @Inventory_3 => m_Wrapper.m_Player_Inventory_3;
+            public InputAction @Inventory_4 => m_Wrapper.m_Player_Inventory_4;
+            public InputAction @Inventory_5 => m_Wrapper.m_Player_Inventory_5;
+            public InputAction @Inventory_6 => m_Wrapper.m_Player_Inventory_6;
+            public InputAction @Inventory_7 => m_Wrapper.m_Player_Inventory_7;
+            public InputAction @Inventory_8 => m_Wrapper.m_Player_Inventory_8;
+            public InputAction @Inventory_9 => m_Wrapper.m_Player_Inventory_9;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -966,6 +1521,54 @@ namespace UnityEngine.InputSystem
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
+                @SwitchItemMouse.started += instance.OnSwitchItemMouse;
+                @SwitchItemMouse.performed += instance.OnSwitchItemMouse;
+                @SwitchItemMouse.canceled += instance.OnSwitchItemMouse;
+                @SwitchItemGamepad.started += instance.OnSwitchItemGamepad;
+                @SwitchItemGamepad.performed += instance.OnSwitchItemGamepad;
+                @SwitchItemGamepad.canceled += instance.OnSwitchItemGamepad;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
+                @Inventory_1.started += instance.OnInventory_1;
+                @Inventory_1.performed += instance.OnInventory_1;
+                @Inventory_1.canceled += instance.OnInventory_1;
+                @Inventory_2.started += instance.OnInventory_2;
+                @Inventory_2.performed += instance.OnInventory_2;
+                @Inventory_2.canceled += instance.OnInventory_2;
+                @Inventory_3.started += instance.OnInventory_3;
+                @Inventory_3.performed += instance.OnInventory_3;
+                @Inventory_3.canceled += instance.OnInventory_3;
+                @Inventory_4.started += instance.OnInventory_4;
+                @Inventory_4.performed += instance.OnInventory_4;
+                @Inventory_4.canceled += instance.OnInventory_4;
+                @Inventory_5.started += instance.OnInventory_5;
+                @Inventory_5.performed += instance.OnInventory_5;
+                @Inventory_5.canceled += instance.OnInventory_5;
+                @Inventory_6.started += instance.OnInventory_6;
+                @Inventory_6.performed += instance.OnInventory_6;
+                @Inventory_6.canceled += instance.OnInventory_6;
+                @Inventory_7.started += instance.OnInventory_7;
+                @Inventory_7.performed += instance.OnInventory_7;
+                @Inventory_7.canceled += instance.OnInventory_7;
+                @Inventory_8.started += instance.OnInventory_8;
+                @Inventory_8.performed += instance.OnInventory_8;
+                @Inventory_8.canceled += instance.OnInventory_8;
+                @Inventory_9.started += instance.OnInventory_9;
+                @Inventory_9.performed += instance.OnInventory_9;
+                @Inventory_9.canceled += instance.OnInventory_9;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -979,6 +1582,54 @@ namespace UnityEngine.InputSystem
                 @Fire.started -= instance.OnFire;
                 @Fire.performed -= instance.OnFire;
                 @Fire.canceled -= instance.OnFire;
+                @Jump.started -= instance.OnJump;
+                @Jump.performed -= instance.OnJump;
+                @Jump.canceled -= instance.OnJump;
+                @Aim.started -= instance.OnAim;
+                @Aim.performed -= instance.OnAim;
+                @Aim.canceled -= instance.OnAim;
+                @Sprint.started -= instance.OnSprint;
+                @Sprint.performed -= instance.OnSprint;
+                @Sprint.canceled -= instance.OnSprint;
+                @Reload.started -= instance.OnReload;
+                @Reload.performed -= instance.OnReload;
+                @Reload.canceled -= instance.OnReload;
+                @SwitchItemMouse.started -= instance.OnSwitchItemMouse;
+                @SwitchItemMouse.performed -= instance.OnSwitchItemMouse;
+                @SwitchItemMouse.canceled -= instance.OnSwitchItemMouse;
+                @SwitchItemGamepad.started -= instance.OnSwitchItemGamepad;
+                @SwitchItemGamepad.performed -= instance.OnSwitchItemGamepad;
+                @SwitchItemGamepad.canceled -= instance.OnSwitchItemGamepad;
+                @Crouch.started -= instance.OnCrouch;
+                @Crouch.performed -= instance.OnCrouch;
+                @Crouch.canceled -= instance.OnCrouch;
+                @Inventory_1.started -= instance.OnInventory_1;
+                @Inventory_1.performed -= instance.OnInventory_1;
+                @Inventory_1.canceled -= instance.OnInventory_1;
+                @Inventory_2.started -= instance.OnInventory_2;
+                @Inventory_2.performed -= instance.OnInventory_2;
+                @Inventory_2.canceled -= instance.OnInventory_2;
+                @Inventory_3.started -= instance.OnInventory_3;
+                @Inventory_3.performed -= instance.OnInventory_3;
+                @Inventory_3.canceled -= instance.OnInventory_3;
+                @Inventory_4.started -= instance.OnInventory_4;
+                @Inventory_4.performed -= instance.OnInventory_4;
+                @Inventory_4.canceled -= instance.OnInventory_4;
+                @Inventory_5.started -= instance.OnInventory_5;
+                @Inventory_5.performed -= instance.OnInventory_5;
+                @Inventory_5.canceled -= instance.OnInventory_5;
+                @Inventory_6.started -= instance.OnInventory_6;
+                @Inventory_6.performed -= instance.OnInventory_6;
+                @Inventory_6.canceled -= instance.OnInventory_6;
+                @Inventory_7.started -= instance.OnInventory_7;
+                @Inventory_7.performed -= instance.OnInventory_7;
+                @Inventory_7.canceled -= instance.OnInventory_7;
+                @Inventory_8.started -= instance.OnInventory_8;
+                @Inventory_8.performed -= instance.OnInventory_8;
+                @Inventory_8.canceled -= instance.OnInventory_8;
+                @Inventory_9.started -= instance.OnInventory_9;
+                @Inventory_9.performed -= instance.OnInventory_9;
+                @Inventory_9.canceled -= instance.OnInventory_9;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1164,6 +1815,22 @@ namespace UnityEngine.InputSystem
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
+            void OnJump(InputAction.CallbackContext context);
+            void OnAim(InputAction.CallbackContext context);
+            void OnSprint(InputAction.CallbackContext context);
+            void OnReload(InputAction.CallbackContext context);
+            void OnSwitchItemMouse(InputAction.CallbackContext context);
+            void OnSwitchItemGamepad(InputAction.CallbackContext context);
+            void OnCrouch(InputAction.CallbackContext context);
+            void OnInventory_1(InputAction.CallbackContext context);
+            void OnInventory_2(InputAction.CallbackContext context);
+            void OnInventory_3(InputAction.CallbackContext context);
+            void OnInventory_4(InputAction.CallbackContext context);
+            void OnInventory_5(InputAction.CallbackContext context);
+            void OnInventory_6(InputAction.CallbackContext context);
+            void OnInventory_7(InputAction.CallbackContext context);
+            void OnInventory_8(InputAction.CallbackContext context);
+            void OnInventory_9(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

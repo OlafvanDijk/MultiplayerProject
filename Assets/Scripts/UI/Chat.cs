@@ -17,7 +17,7 @@ public class Chat : MonoBehaviour
     [SerializeField] private InputActionReference _cancelAction;
     [SerializeField] private int _maxMessages = 20;
 
-    public static UnityEvent<string, bool> E_SendMessage = new();
+    public static UnityEvent<string, bool, bool> E_SendMessage = new();
 
     private bool _chatShown;
 
@@ -80,9 +80,9 @@ public class Chat : MonoBehaviour
         }
     }
 
-    public void ShowMessage(string message, bool select = false)
+    public void ShowMessage(string message, bool select = false, bool showChat = true)
     {
-        if (!_chatShown)
+        if (showChat && !_chatShown)
             ShowChat(true);
 
         GameObject messageObject = Instantiate(_logPrefab, _logParent);

@@ -17,8 +17,9 @@ public class LogHandler : MonoBehaviour
     private void HandleLog(string LogString, string stackTrace, LogType type)
     {
         string message = LogString;
-        if (type == LogType.Error)
+        bool error = type == LogType.Error;
+        if (error)
             message = $"<color=red>Error!!</color> {message}\n{stackTrace}";
-        Chat.E_SendMessage.Invoke(message, false);
+        Chat.E_SendMessage.Invoke(message, false, error);
     }
 }
