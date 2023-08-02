@@ -88,7 +88,7 @@ public class Chat : MonoBehaviour
         GameObject messageObject = Instantiate(_logPrefab, _logParent);
         TextMeshProUGUI chatMessage = messageObject.GetComponent<TextMeshProUGUI>();
         TimeSpan timeNow = DateTime.Now.TimeOfDay;
-        chatMessage.text = $"[{timeNow.Hours}:{timeNow.Minutes}:{string.Format("{0:d2}", timeNow.Seconds)}] Player: {message}";
+        chatMessage.text = $"[{string.Format("{0:d2}", timeNow.Hours)}:{string.Format("{0:d2}", timeNow.Minutes)}:{string.Format("{0:d2}", timeNow.Seconds)}] Player: {message}";
         messages.Add(messageObject);
         messageObject.SetActive(true);
 
