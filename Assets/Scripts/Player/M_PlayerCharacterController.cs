@@ -2,8 +2,11 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Unity.Netcode;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 
-public class M_PlayerCharacterController : MonoBehaviour
+public class M_PlayerCharacterController : NetworkBehaviour
 {
     [Header("References")]
     [Tooltip("Reference to the main camera used for the player")]
@@ -164,20 +167,16 @@ public class M_PlayerCharacterController : MonoBehaviour
 
     /// <summary>
     /// Sets the player in the ActorsManager.
+    /// Set the death listener and force the crouch state to false.
     /// </summary>
-    private void Awake()
+    public override void OnNetworkSpawn()
     {
+        base.OnNetworkSpawn();
         //TODO see if we can replace the find object of type
         ActorsManager actorsManager = FindObjectOfType<ActorsManager>();
         if (actorsManager != null)
             actorsManager.SetPlayer(gameObject);
-    }
 
-    /// <summary>
-    /// Set the death listener and force the crouch state to false.
-    /// </summary>
-    private void Start()
-    {
         _controller.enableOverlapRecovery = true;
         _health.OnDie += OnDie;
 
@@ -192,6 +191,9 @@ public class M_PlayerCharacterController : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        if (!IsLocalPlayer)
+            return;
+
         if (!IsDead && transform.position.y < KillHeight)
         {
             _health.Kill();
@@ -201,8 +203,10 @@ public class M_PlayerCharacterController : MonoBehaviour
         HasJumpedThisFrame = false;
 
         bool wasGrounded = IsGrounded;
-        GroundCheck();
-        CheckLanding(wasGrounded);
+        ServerRpcParams serverRpcParams = Helper.CreateServerParam(OwnerClientId);
+
+        GroundCheckServerRPC();
+        CheckLandingServerRPC(wasGrounded, serverRpcParams);
 
         if (_inputHandler.GetCrouchInputDown())
         {
@@ -210,7 +214,8 @@ public class M_PlayerCharacterController : MonoBehaviour
         }
 
         UpdateCharacterHeight(false);
-        HandleCharacterMovement();
+        HandleCharacterMovementServerRPC(_inputHandler.GetLookInputsHorizontal(), _inputHandler.GetLookInputsVertical(),
+            _inputHandler.GetSprintInputHeld(), _inputHandler.GetMoveInput(), _inputHandler.GetJumpInputDown(), serverRpcParams);
     }
 
     /// <summary>
@@ -227,8 +232,12 @@ public class M_PlayerCharacterController : MonoBehaviour
     /// Check if the player has a normal landing or recieves damages.
     /// </summary>
     /// <param name="wasGrounded">True if the player was grounded before the ground check.</param>
-    private void CheckLanding(bool wasGrounded)
+    [ServerRpc]
+    private void CheckLandingServerRPC(bool wasGrounded, ServerRpcParams serverRpcParams)
     {
+        if (!Helper.CheckPlayer(serverRpcParams, OwnerClientId))
+            return;
+
         if (IsGrounded && !wasGrounded)
         {
             float fallSpeed = -Mathf.Min(CharacterVelocity.y, _latestImpactSpeed.y);
@@ -236,12 +245,12 @@ public class M_PlayerCharacterController : MonoBehaviour
             if (RecievesFallDamage && fallSpeedRatio > 0f)
             {
                 float dmgFromFall = Mathf.Lerp(FallDamageAtMinSpeed, FallDamageAtMaxSpeed, fallSpeedRatio);
-                _health.TakeDamage(dmgFromFall, null);
-                AudioSource.PlayOneShot(FallDamageSfx);
+                _health.TakeDamage(dmgFromFall, null); //TODO Do something so that the client also sees that they are getting damaged
+                PlayAudioClientRPC(FallDamageSfx.name, Helper.ServerToClientParam(serverRpcParams));
             }
             else
             {
-                AudioSource.PlayOneShot(LandSfx);
+                PlayAudioClientRPC(LandSfx.name, Helper.ServerToClientParam(serverRpcParams));
             }
         }
     }
@@ -251,7 +260,8 @@ public class M_PlayerCharacterController : MonoBehaviour
     /// Looks for ground with a capsule cast representing the player's capsule but a bit below the player's original position.
     /// Checks ground normal and slope when grounding.
     /// </summary>
-    private void GroundCheck()
+    [ServerRpc]
+    private void GroundCheckServerRPC()
     {
         float chosenGroundCheckDistance = IsGrounded ? (_controller.skinWidth + GroundCheckDistance) : GroundCheckDistanceInAir;
         IsGrounded = false;
@@ -280,20 +290,24 @@ public class M_PlayerCharacterController : MonoBehaviour
     /// Handles camera and character movement.
     /// Saves lastestImpactSpeed in case of fall damage.
     /// </summary>
-    private void HandleCharacterMovement()
+    [ServerRpc]
+    private void HandleCharacterMovementServerRPC(float horizontalLook, float verticalLook, bool sprintHeld, Vector3 moveInput, bool jumpInputDown, ServerRpcParams serverRpcParams)
     {
-        transform.Rotate(new Vector3(0f, (_inputHandler.GetLookInputsHorizontal() * RotationSpeed * RotationMultiplier), 0f), Space.Self);
-        RotateCameraVertically();
+        if (!Helper.CheckPlayer(serverRpcParams, OwnerClientId))
+            return;
 
-        bool isSprinting = _inputHandler.GetSprintInputHeld();
+        transform.Rotate(new Vector3(0f, (horizontalLook * RotationSpeed * RotationMultiplier), 0f), Space.Self);
+        RotateCameraVerticallyClientRPC(verticalLook, Helper.ServerToClientParam(serverRpcParams));
+
+        bool isSprinting = sprintHeld;
         if (isSprinting)
             isSprinting = SetCrouchingState(false, false);
 
         float speedModifier = isSprinting ? SprintSpeedModifier : 1f;
-        Vector3 worldspaceMoveInput = transform.TransformVector(_inputHandler.GetMoveInput());
+        Vector3 worldspaceMoveInput = transform.TransformVector(moveInput);
 
         if (IsGrounded)
-            GroundMovement(isSprinting, worldspaceMoveInput, speedModifier);
+            GroundMovement(serverRpcParams, isSprinting, worldspaceMoveInput, speedModifier, jumpInputDown);
         else
             AirMovement(worldspaceMoveInput, speedModifier);
 
@@ -314,23 +328,12 @@ public class M_PlayerCharacterController : MonoBehaviour
     }
 
     /// <summary>
-    /// Rotates the camera vertically.
-    /// We use the players rotation for the horizontal movement of the camera.
-    /// </summary>
-    private void RotateCameraVertically()
-    {
-        _cameraVerticalAngle -= _inputHandler.GetLookInputsVertical() * RotationSpeed * RotationMultiplier;
-        _cameraVerticalAngle = Mathf.Clamp(_cameraVerticalAngle, _verticalCameraMaxAgles.x, _verticalCameraMaxAgles.y);
-        PlayerCamera.transform.localEulerAngles = new Vector3(_cameraVerticalAngle, 0, 0);
-    }
-
-    /// <summary>
     /// Handles the movement on the ground and checks for jumps and footsteps.
     /// </summary>
     /// <param name="isSprinting">True if the player is sprinting.</param>
     /// <param name="worldspaceMoveInput">Directional movement input.</param>
     /// <param name="speedModifier">Speed modifier.</param>
-    private void GroundMovement(bool isSprinting, Vector3 worldspaceMoveInput, float speedModifier)
+    private void GroundMovement(ServerRpcParams serverRpcParams, bool isSprinting, Vector3 worldspaceMoveInput, float speedModifier, bool jumpInputDown)
     {
         Vector3 targetVelocity = worldspaceMoveInput * MaxSpeedOnGround * speedModifier;
 
@@ -339,20 +342,15 @@ public class M_PlayerCharacterController : MonoBehaviour
         targetVelocity = GetDirectionReorientedOnSlope(targetVelocity.normalized, _groundNormal) * targetVelocity.magnitude;
         CharacterVelocity = Vector3.Lerp(CharacterVelocity, targetVelocity, MovementSharpnessOnGround * Time.deltaTime);
 
-        Jump();
-        CheckFootsteps(isSprinting);
+        Jump(serverRpcParams, jumpInputDown);
+        CheckFootsteps(serverRpcParams, isSprinting);
     }
 
     /// <summary>
     /// Forces the ground state to false. Stop the Y velocity and add our own jump force.
     /// </summary>
-    private void Jump()
+    private void Jump(ServerRpcParams serverRpcParams, bool jumpInputDown)
     {
-        if (_inputHandler.GetJumpInputDown())
-        { 
-            
-        }
-
         if (IsGrounded == false || !_inputHandler.GetJumpInputDown())
             return;
 
@@ -361,7 +359,7 @@ public class M_PlayerCharacterController : MonoBehaviour
             CharacterVelocity = new Vector3(CharacterVelocity.x, 0f, CharacterVelocity.z);
             CharacterVelocity += Vector3.up * JumpForce;
 
-            AudioSource.PlayOneShot(JumpSfx);
+            PlayAudioClientRPC(JumpSfx.name, Helper.ServerToClientParam(serverRpcParams));
 
             _lastTimeJumped = Time.time;
             HasJumpedThisFrame = true;
@@ -374,13 +372,13 @@ public class M_PlayerCharacterController : MonoBehaviour
     /// Plays the correct footstep sound if the footstep distance has been reached.
     /// </summary>
     /// <param name="isSprinting">True if the player is sprinting</param>
-    private void CheckFootsteps(bool isSprinting)
+    private void CheckFootsteps(ServerRpcParams serverRpcParams, bool isSprinting)
     {
         float chosenFootstepSfxFrequency = (isSprinting ? FootstepSfxFrequencyWhileSprinting : FootstepSfxFrequency);
         if (_footstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
         {
             _footstepDistanceCounter = 0f;
-            AudioSource.PlayOneShot(FootstepSfx);
+            PlayAudioClientRPC(FootstepSfx.name, Helper.ServerToClientParam(serverRpcParams));
         }
         _footstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
     }
@@ -503,4 +501,34 @@ public class M_PlayerCharacterController : MonoBehaviour
         Vector3 directionRight = Vector3.Cross(direction, transform.up);
         return Vector3.Cross(slopeNormal, directionRight).normalized;
     }
+
+    [ClientRpc]
+    private void PlayAudioClientRPC(string sfxName, ClientRpcParams clientRpcParams)
+    {
+        AudioClip clip = null;
+        if (sfxName.Equals(FallDamageSfx.name))
+            clip = FallDamageSfx;
+        else if (sfxName.Equals(LandSfx.name))
+            clip = LandSfx;
+        else if (sfxName.Equals(JumpSfx.name))
+            clip = JumpSfx;
+        else if (sfxName.Equals(FootstepSfx.name))
+                clip = FootstepSfx;
+
+        AudioSource.PlayOneShot(clip);
+    }
+
+    /// <summary>
+    /// Rotates the camera vertically.
+    /// We use the players rotation for the horizontal movement of the camera.
+    /// </summary>
+    [ClientRpc]
+    private void RotateCameraVerticallyClientRPC(float verticalLook, ClientRpcParams clientRpcParams)
+    {
+        _cameraVerticalAngle -= verticalLook * RotationSpeed * RotationMultiplier;
+        _cameraVerticalAngle = Mathf.Clamp(_cameraVerticalAngle, _verticalCameraMaxAgles.x, _verticalCameraMaxAgles.y);
+        PlayerCamera.transform.localEulerAngles = new Vector3(_cameraVerticalAngle, 0, 0);
+    }
+
+
 }

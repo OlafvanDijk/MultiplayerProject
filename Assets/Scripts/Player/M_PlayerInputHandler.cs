@@ -49,13 +49,13 @@ public class M_PlayerInputHandler : MonoBehaviour
     private void Start()
     {
         //m_PlayerCharacterController = GetComponent<PlayerCharacterController>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     public bool CanProcessInput()
     {
-        return Cursor.lockState == CursorLockMode.Locked; //TODO Add to this if input may not be processed like the game being paused
+        return true; // Cursor.lockState == CursorLockMode.Locked; //TODO Add to this if input may not be processed like the game being paused
     }
 
     public Vector3 GetMoveInput()

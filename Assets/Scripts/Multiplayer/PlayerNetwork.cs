@@ -25,7 +25,13 @@ public class PlayerNetwork : NetworkBehaviour
             SetEyesLayer(_eyesParent);
         } else
         {
-            DestoryPlayerItems();
+            if (_gameObjectsToDestroy.Count > 0)
+            {
+                foreach (GameObject gameObject in _gameObjectsToDestroy.ToList())
+                {
+                    DestroyImmediate(gameObject);
+                }
+            }
         }
     }
 
@@ -36,13 +42,6 @@ public class PlayerNetwork : NetworkBehaviour
             foreach (Component component in _componentsToDestroy.ToList())
             {
                 DestroyImmediate(component);
-            }
-        }
-        if (_gameObjectsToDestroy.Count > 0)
-        {
-            foreach (GameObject gameObject in _gameObjectsToDestroy.ToList())
-            {
-                DestroyImmediate(gameObject);
             }
         }
     }
