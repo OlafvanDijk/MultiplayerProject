@@ -212,7 +212,6 @@ namespace Unity.FPS.Gameplay
             }
 
             UpdateCharacterHeight(false);
-
             HandleCharacterMovement();
         }
 
@@ -253,7 +252,6 @@ namespace Unity.FPS.Gameplay
                         IsNormalUnderSlopeLimit(m_GroundNormal))
                     {
                         IsGrounded = true;
-
                         // handle snapping to the ground
                         if (hit.distance > m_Controller.skinWidth)
                         {

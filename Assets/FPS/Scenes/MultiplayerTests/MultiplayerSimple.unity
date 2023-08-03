@@ -605,7 +605,6 @@ GameObject:
   m_Component:
   - component: {fileID: 350050700}
   - component: {fileID: 350050699}
-  - component: {fileID: 350050698}
   - component: {fileID: 350050701}
   m_Layer: 0
   m_Name: Main Camera
@@ -614,14 +613,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &350050698
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 350050697}
-  m_Enabled: 1
 --- !u!20 &350050699
 Camera:
   m_ObjectHideFlags: 0
@@ -1085,6 +1076,7 @@ GameObject:
   - component: {fileID: 556801692}
   - component: {fileID: 556801694}
   - component: {fileID: 556801695}
+  - component: {fileID: 556801696}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -1185,6 +1177,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d519ab7bf3d8414c81adf286598fd44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &556801696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556801691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf10145f6bd13744c8fd10972a92ac61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &604818143

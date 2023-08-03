@@ -43,7 +43,8 @@ public class Chat : MonoBehaviour
     #region Action Listeners
     private void PressedSubmit(InputAction.CallbackContext callback)
     {
-        if (_chatShown) {
+        if (_chatShown)
+        {
             if (!_inputField.isFocused)
                 return;
 
@@ -53,7 +54,8 @@ public class Chat : MonoBehaviour
                 return;
             _inputField.text = string.Empty;
             ShowMessage(input, true);
-        } else {
+        } else
+        {
             ShowChat(true);
         }
     }
@@ -64,7 +66,8 @@ public class Chat : MonoBehaviour
     }
     #endregion
 
-    private void ShowChat(bool show) {
+    private void ShowChat(bool show)
+    {
         if (show)
         {
             _chat.SetActive(true);
@@ -73,7 +76,8 @@ public class Chat : MonoBehaviour
             _scrollbar.value = 0f;
             _chatShown = true;
         }
-        else {
+        else
+        {
             _cancelAction.action.performed -= PressedCancel;
             _chat.SetActive(false);
             _chatShown = false;
@@ -103,7 +107,8 @@ public class Chat : MonoBehaviour
             SelectInput();
     }
 
-    private void SelectInput() {
+    private void SelectInput()
+    {
         _inputField.ActivateInputField();
         _inputField.Select();
     }
