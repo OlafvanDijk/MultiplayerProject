@@ -44,13 +44,17 @@ public class M_PlayerInputHandler : MonoBehaviour
     [FoldoutGroup("Input Action References")] [SerializeField] private InputActionReference _inventoryEightReference;
     [FoldoutGroup("Input Action References")] [SerializeField] private InputActionReference _inventoryNineReference;
 
-    //PlayerCharacterController m_PlayerCharacterController;
+    private float _tickRate;
 
     private void Start()
     {
-        //m_PlayerCharacterController = GetComponent<PlayerCharacterController>();
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
+    }
+
+    public void SetTrickRate(float tickRate)
+    {
+        _tickRate = tickRate;
     }
 
     public bool CanProcessInput()
@@ -72,20 +76,9 @@ public class M_PlayerInputHandler : MonoBehaviour
     }
 
     public Vector2 GetLookInput()
-    { 
-        return _lookReference.action.ReadValue<Vector2>();
-    }
-
-    public float GetLookInputsHorizontal()
     {
         Vector2 axis = _lookReference.action.ReadValue<Vector2>();
-        return GetMouseOrStickLookAxis(axis).x;
-    }
-
-    public float GetLookInputsVertical()
-    {
-        Vector2 axis = _lookReference.action.ReadValue<Vector2>();
-        return GetMouseOrStickLookAxis(axis).y;
+        return GetMouseOrStickLookAxis(axis);
     }
 
     public bool GetJumpInputDown()
@@ -104,7 +97,6 @@ public class M_PlayerInputHandler : MonoBehaviour
         {
             return _jumpReference.action.IsPressed();
         }
-        Debug.Log("Nope");
         return false;
     }
 
@@ -218,7 +210,7 @@ public class M_PlayerInputHandler : MonoBehaviour
         if (isGamepad)
         {
             // since mouse input is already deltaTime-dependant, only scale input with frame time if it's coming from sticks
-            axis *= Time.deltaTime;
+            axis *= _tickRate;
         }
         else
         {

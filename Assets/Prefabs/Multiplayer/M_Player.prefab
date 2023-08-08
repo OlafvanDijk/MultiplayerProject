@@ -339,13 +339,14 @@ GameObject:
   - component: {fileID: 4837029552309263917}
   - component: {fileID: 8878571310585999459}
   - component: {fileID: 1965868097568565991}
-  - component: {fileID: 3616103413347205635}
   - component: {fileID: 7290794387435838972}
   - component: {fileID: 4375926515123914549}
   - component: {fileID: 1528162603704009539}
   - component: {fileID: 3029978600367767937}
   - component: {fileID: 7696096160244869989}
-  - component: {fileID: 4534299228531432250}
+  - component: {fileID: 4601898690416322187}
+  - component: {fileID: 5233720701667838523}
+  - component: {fileID: 8817479879120627461}
   m_Layer: 0
   m_Name: M_Player
   m_TagString: Untagged
@@ -406,7 +407,6 @@ MonoBehaviour:
   _networkObject: {fileID: 4837029552309263917}
   _componentsToDestroy:
   - {fileID: 1965868097568565991}
-  - {fileID: 7290794387435838972}
   _gameObjectsToDestroy:
   - {fileID: 8611710613161395276}
 --- !u!114 &1965868097568565991
@@ -464,58 +464,6 @@ MonoBehaviour:
     type: 3}
   _inventoryNineReference: {fileID: -5957364690413162826, guid: 4d8dd374fa6297f469a8c6816a4f4088,
     type: 3}
---- !u!114 &3616103413347205635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3287024004382941503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a6f0c1367be3d8429faf10df9944930, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerCamera: {fileID: 8341930881228969952}
-  _actor: {fileID: 1528162603704009539}
-  _health: {fileID: 3029978600367767937}
-  AudioSource: {fileID: 4375926515123914549}
-  _controller: {fileID: 7290794387435838972}
-  _inputHandler: {fileID: 1965868097568565991}
-  GravityDownForce: 20
-  GroundCheckLayers:
-    serializedVersion: 2
-    m_Bits: 1
-  GroundCheckDistance: 1
-  MaxSpeedOnGround: 13
-  MovementSharpnessOnGround: 15
-  MaxSpeedCrouchedRatio: 0.5
-  MaxSpeedInAir: 10
-  AccelerationSpeedInAir: 25
-  SprintSpeedModifier: 1.5
-  KillHeight: -50
-  RotationSpeed: 200
-  AimingRotationMultiplier: 0.4
-  _verticalCameraMaxAgles: {x: -89, y: 89}
-  JumpForce: 9
-  CameraHeightRatio: 0.8
-  CapsuleHeightStanding: 1.8
-  CapsuleHeightCrouching: 0.9
-  CrouchingSharpness: 15
-  FootstepSfxFrequency: 0.3
-  FootstepSfxFrequencyWhileSprinting: 0.2
-  FootstepSfx: {fileID: 8300000, guid: f404f8d3c2a4b4f48989fb1120e78fb8, type: 3}
-  JumpSfx: {fileID: 8300000, guid: 13b59a14d34add64d84a623867546ff1, type: 3}
-  LandSfx: {fileID: 8300000, guid: d0f1afed8fa916244af6ca73579ded67, type: 3}
-  FallDamageSfx: {fileID: 8300000, guid: ef980d09b569380459e609fe90ef1db2, type: 3}
-  RecievesFallDamage: 1
-  MinSpeedForFallDamage: 20
-  MaxSpeedForFallDamage: 40
-  FallDamageAtMinSpeed: 10
-  FallDamageAtMaxSpeed: 30
-  OnStanceChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!143 &7290794387435838972
 CharacterController:
   m_ObjectHideFlags: 0
@@ -672,7 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageMultiplier: 1
   SensibilityToSelfdamage: 0.5
---- !u!114 &4534299228531432250
+--- !u!114 &4601898690416322187
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -681,23 +629,77 @@ MonoBehaviour:
   m_GameObject: {fileID: 3287024004382941503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: d88531c9483ae364c9273de7a9e82868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 0
-  SyncScaleY: 0
-  SyncScaleZ: 0
-  PositionThreshold: 0.001
-  RotAngleThreshold: 0.01
-  ScaleThreshold: 0.01
-  InLocalSpace: 0
-  Interpolate: 1
+  _movement: {fileID: 8817479879120627461}
+  _movementClient: {fileID: 5233720701667838523}
+--- !u!114 &5233720701667838523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3287024004382941503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e8204a3986413d45b36edc805492d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputHandler: {fileID: 1965868097568565991}
+  _movement: {fileID: 8817479879120627461}
+  _movementServer: {fileID: 4601898690416322187}
+--- !u!114 &8817479879120627461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3287024004382941503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8937ab8d80b2746a0d74e251625d1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerCamera: {fileID: 8341930881228969952}
+  _actor: {fileID: 1528162603704009539}
+  _health: {fileID: 3029978600367767937}
+  _audioSource: {fileID: 4375926515123914549}
+  _controller: {fileID: 7290794387435838972}
+  _gravityDownForce: 20
+  _groundCheckLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  _groundCheckDistance: 1
+  _maxSpeedOnGround: 13
+  _movementSharpnessOnGround: 15
+  _maxSpeedCrouchedRatio: 0.5
+  _maxSpeedInAir: 10
+  _accelerationSpeedInAir: 25
+  _sprintSpeedModifier: 1.5
+  _killHeight: -50
+  _rotationSpeed: 200
+  _aimingRotationMultiplier: 0.4
+  _verticalCameraMaxAgles: {x: -89, y: 89}
+  _jumpForce: 9
+  _cameraHeightRatio: 0.8
+  _capsuleHeightStanding: 1.8
+  _capsuleHeightCrouching: 0.9
+  _crouchingSharpness: 15
+  _footstepSfxFrequency: 0.3
+  _footstepSfxFrequencyWhileSprinting: 0.2
+  _footstepSfx: {fileID: 8300000, guid: f404f8d3c2a4b4f48989fb1120e78fb8, type: 3}
+  _jumpSfx: {fileID: 8300000, guid: 13b59a14d34add64d84a623867546ff1, type: 3}
+  _landSfx: {fileID: 8300000, guid: d0f1afed8fa916244af6ca73579ded67, type: 3}
+  _fallDamageSfx: {fileID: 8300000, guid: ef980d09b569380459e609fe90ef1db2, type: 3}
+  _recievesFallDamage: 1
+  _minSpeedForFallDamage: 20
+  _maxSpeedForFallDamage: 40
+  _fallDamageAtMinSpeed: 10
+  _fallDamageAtMaxSpeed: 30
+  OnStanceChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3383547317455562573
 GameObject:
   m_ObjectHideFlags: 0

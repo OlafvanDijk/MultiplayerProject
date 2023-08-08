@@ -2,10 +2,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Unity.Netcode;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
-
 public class M_PlayerCharacterController : NetworkBehaviour
 {
     [Header("References")]
@@ -214,7 +210,9 @@ public class M_PlayerCharacterController : NetworkBehaviour
         }
 
         UpdateCharacterHeight(false);
-        HandleCharacterMovementServerRPC(_inputHandler.GetLookInputsHorizontal(), _inputHandler.GetLookInputsVertical(),
+
+        Vector2 lookInput = _inputHandler.GetLookInput();
+        HandleCharacterMovementServerRPC(lookInput.x, lookInput.y,
             _inputHandler.GetSprintInputHeld(), _inputHandler.GetMoveInput(), _inputHandler.GetJumpInputDown(), serverRpcParams);
     }
 

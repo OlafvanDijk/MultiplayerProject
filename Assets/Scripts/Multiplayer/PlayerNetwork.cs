@@ -1,10 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
 using System.Linq;
-using System;
 
 public class PlayerNetwork : NetworkBehaviour
 {
@@ -20,18 +18,12 @@ public class PlayerNetwork : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsOwner)
+        if (IsClient && IsLocalPlayer)
         {
             SetEyesLayer(_eyesParent);
         } else
         {
-            if (_gameObjectsToDestroy.Count > 0)
-            {
-                foreach (GameObject gameObject in _gameObjectsToDestroy.ToList())
-                {
-                    DestroyImmediate(gameObject);
-                }
-            }
+            DestoryPlayerItems();
         }
     }
 
@@ -42,6 +34,13 @@ public class PlayerNetwork : NetworkBehaviour
             foreach (Component component in _componentsToDestroy.ToList())
             {
                 DestroyImmediate(component);
+            }
+        }
+        if (_gameObjectsToDestroy.Count > 0)
+        {
+            foreach (GameObject gameObject in _gameObjectsToDestroy.ToList())
+            {
+                DestroyImmediate(gameObject);
             }
         }
     }

@@ -23,4 +23,15 @@ public static class Helper
     {
         return serverRpcParams.Receive.SenderClientId == ID;
     }
+
+    public static TransformState TransformState(int tick, Vector3 position, Quaternion rotation, bool hasStartedMoving)
+    {
+        return new TransformState()
+        {
+            Tick = tick,
+            Position = position,
+            Rotation = rotation,
+            HasStartedMoving = hasStartedMoving
+        };
+    }
 }
