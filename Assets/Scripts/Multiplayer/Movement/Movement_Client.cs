@@ -17,6 +17,10 @@ public class Movement_Client : NetworkBehaviour
     private InputState[] _inputStates = new InputState[BUFFER_SIZE];
     private TransformState[] _transformStates = new TransformState[BUFFER_SIZE];
 
+    private bool _triedJumpingThisTick;
+    private bool _triedSprintingThisTick;
+    private bool _triedCrouchingThisTick;
+
     private void OnEnable()
     {
         _movementServer.ServerTransformState.OnValueChanged += OnTransformStateChanged;
@@ -102,20 +106,31 @@ public class Movement_Client : NetworkBehaviour
     /// <param name="jump">True when trying to jump.</param>
     public void ProcessLocalPlayerMovement(Vector3 moveInput, Vector2 lookInput, bool crouch, bool sprint, bool jump)
     {
+        if (crouch == true && !_triedCrouchingThisTick)
+            _triedCrouchingThisTick = true;
+        if (sprint == true && !_triedSprintingThisTick)
+            _triedSprintingThisTick = true;
+        if (jump == true && !_triedJumpingThisTick)
+            _triedJumpingThisTick = true;
+
         if (!UpdateTick())
             return;
 
         int bufferIndex = _tick % BUFFER_SIZE;
 
         TransformState transformState = Helper.TransformState(_tick, transform.position, transform.rotation, true);
-        Move(transformState, moveInput, lookInput, crouch, sprint, jump);
+        Move(transformState, moveInput, lookInput, _triedCrouchingThisTick, _triedSprintingThisTick, _triedJumpingThisTick);
 
-        InputState inputState = new InputState(_tick, moveInput, lookInput, crouch, sprint, jump);
+        InputState inputState = new InputState(_tick, moveInput, lookInput, _triedCrouchingThisTick, _triedSprintingThisTick, _triedJumpingThisTick);
         _inputStates[bufferIndex] = inputState;
         _transformStates[bufferIndex] = transformState;
 
         _tickDeltaTime -= _tickrate;
         _tick++;
+
+        _triedCrouchingThisTick = false;
+        _triedSprintingThisTick = false;
+        _triedJumpingThisTick = false;
     }
 
     /// <summary>
