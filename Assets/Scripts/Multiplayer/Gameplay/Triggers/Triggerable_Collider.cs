@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Switch : NetworkBehaviour
+public class Triggerable_Collider : Triggerable
 {
-    public UnityEvent<bool> OnSwitchChanged = new();
+    public UnityEvent<bool> E_OnSwitchChanged = new();
 
     private NetworkVariable<bool> _isActive = new();   
 
@@ -20,18 +17,18 @@ public class Switch : NetworkBehaviour
     {
         if (isActive)
         {
-            Debug.Log("Active");
+            Activate();
         }
         else 
         {
-            Debug.Log("Not Active");
+            Deactivate();
         }
-        OnSwitchChanged.Invoke(isActive);
+        E_OnSwitchChanged.Invoke(isActive);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (IsServer)
+        if (IsServer && IsLocalPlayer)
         {
             _isActive.Value = true;
             return;
@@ -42,7 +39,7 @@ public class Switch : NetworkBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (IsServer)
+        if (IsServer && IsLocalPlayer)
         {
             _isActive.Value = false;
             return;
@@ -51,7 +48,7 @@ public class Switch : NetworkBehaviour
         OnSwitchChangedServerRpc(false);
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void OnSwitchChangedServerRpc(bool isActive)
     {
         _isActive.Value = isActive;

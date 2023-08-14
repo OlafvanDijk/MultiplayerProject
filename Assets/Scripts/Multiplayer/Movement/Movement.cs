@@ -124,7 +124,7 @@ public class Movement : MonoBehaviour
     [Tooltip("Damage recieved when falling at the maximum speed")]
     [SerializeField] private float _fallDamageAtMaxSpeed = 30f;
 
-    public UnityEvent<bool> OnStanceChanged = new();
+    public UnityEvent<bool> E_OnStanceChanged = new();
 
     public Vector3 CharacterVelocity { get; set; }
     public bool IsLocalPlayer { get; set; }
@@ -305,7 +305,7 @@ public class Movement : MonoBehaviour
             _targetCharacterHeight = _capsuleHeightStanding;
         }
 
-        OnStanceChanged.Invoke(crouched);
+        E_OnStanceChanged.Invoke(crouched);
         IsCrouching = crouched;
         return true;
     }

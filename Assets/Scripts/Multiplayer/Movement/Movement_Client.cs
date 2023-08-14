@@ -63,8 +63,6 @@ public class Movement_Client : NetworkBehaviour
             bool crouch = _inputHandler.GetCrouchInputDown();
             bool sprint = _inputHandler.GetSprintInputHeld();
             bool jump = _inputHandler.GetJumpInputDown();
-            if(jump)
-                Debug.Log("Trying to jump");
             ProcessLocalPlayerMovement(moveInput, lookInput, crouch, sprint, jump);
         }
         else
@@ -81,7 +79,7 @@ public class Movement_Client : NetworkBehaviour
         if (!UpdateTick())
             return;
 
-        if (_movementServer.ServerTransformState != null)
+        if (_movementServer.ServerTransformState.Value != null)
         {
             TransformState currentState = _movementServer.ServerTransformState.Value;
             if (currentState.HasStartedMoving)
