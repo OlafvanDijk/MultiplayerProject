@@ -21,6 +21,6 @@ EditorBuildSettings:
     path: Assets/FPS/Scenes/SecondaryScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/FPS/Scenes/MultiplayerTests/MultiplayerSimple.unity
+    path: Assets/Own Assets/Scenes/MultiplayerSimple.unity
     guid: 6dbd02b9438dd4a459730219ccff2d65
   m_configObjects: {}
