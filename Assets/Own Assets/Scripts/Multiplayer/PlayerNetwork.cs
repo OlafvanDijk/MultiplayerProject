@@ -10,8 +10,6 @@ public class PlayerNetwork : NetworkBehaviour
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private Transform _eyesParent;
 
-    [SerializeField] private PlayerData playerData;
-
     [SerializeField] private NetworkObject _networkObject;
 
     [SerializeField] private ToDestroy _toDestroyWhenPlayer;
@@ -26,11 +24,16 @@ public class PlayerNetwork : NetworkBehaviour
 
     public static PlayerInput Player;
 
+    /// <summary>
+    /// Set eye position in the PlayerInfo.
+    /// Set layer of eyes as to not be seen by the camera.
+    /// Destroys all objects and components that are not needed on the player or fake players side.
+    /// </summary>
     public override void OnNetworkSpawn()
     {
         if (IsClient && IsLocalPlayer)
         {
-            playerData.EyesPosition = _eyesParent;
+            PlayerInfoManager.Instance.EyesPosition = _eyesParent;
             SetEyesLayer(_eyesParent);
             DestoryPlayerItems(_toDestroyWhenPlayer);
         } else

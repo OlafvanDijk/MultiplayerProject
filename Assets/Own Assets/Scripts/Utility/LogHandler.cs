@@ -12,6 +12,12 @@ public class LogHandler : MonoBehaviour
         Application.logMessageReceived -= HandleLog;
     }
 
+    /// <summary>
+    /// Tracks logs and sends them to the chat with the correct message type.
+    /// </summary>
+    /// <param name="LogString"></param>
+    /// <param name="stackTrace"></param>
+    /// <param name="type"></param>
     private void HandleLog(string LogString, string stackTrace, LogType type)
     {
         string message = LogString;

@@ -12,7 +12,6 @@ public class NetworkManagerUI : MonoBehaviour
 
     [SerializeField] private Chat _chat;
 
-    [SerializeField] private PlayerData _playerData;
     [SerializeField] private TMP_InputField _nameInputField;
 
     private void Awake()
@@ -49,7 +48,7 @@ public class NetworkManagerUI : MonoBehaviour
             return false;
         }
 
-        _playerData.Name = _nameInputField.text;
+        PlayerInfoManager.Instance.SetName(_nameInputField.text);
         return true;
     }
 

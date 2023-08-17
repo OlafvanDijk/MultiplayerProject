@@ -11,8 +11,13 @@ public class Switchbox : NetworkBehaviour
 
     public UnityEvent E_TriggerActions = new();
 
-    private Dictionary<Triggerable, bool> _activatedTriggers = new();
+    private bool _cleanedUp;
 
+    private Dictionary<Triggerable, bool> _activatedTriggers = new();    
+
+    /// <summary>
+    /// If this is the server then add listeners to all the triggerables.
+    /// </summary>
     public override void OnNetworkSpawn()
     {
         if (!IsServer)
@@ -35,6 +40,12 @@ public class Switchbox : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// On Triggerable Value change check if switchbox should be triggered.
+    /// Switchbox only triggers if all triggers have been triggered.
+    /// </summary>
+    /// <param name="triggerable"></param>
+    /// <param name="active"></param>
     private void OnTriggerValueChange(Triggerable triggerable, bool active)
     {
         _activatedTriggers[triggerable] = active;
@@ -42,6 +53,10 @@ public class Switchbox : NetworkBehaviour
             Trigger();
     }
 
+    /// <summary>
+    /// Trigger switchbox.
+    /// Calls cleanup if switchbox can only trigger once.
+    /// </summary>
     private void Trigger()
     {
         E_TriggerActions.Invoke();
@@ -53,9 +68,13 @@ public class Switchbox : NetworkBehaviour
 
     public override void OnDestroy()
     {
-        CleanUp();
+        if(!_cleanedUp)
+            CleanUp();
     }
 
+    /// <summary>
+    /// Removes listeners, clears lists and destroys this component
+    /// </summary>
     private void CleanUp()
     {
         foreach (Triggerable triggerable in _triggerables)
@@ -64,6 +83,7 @@ public class Switchbox : NetworkBehaviour
         }
         _triggerables.Clear();
         _activatedTriggers.Clear();
+        _cleanedUp = true;
         Destroy(this);
     }
 }
