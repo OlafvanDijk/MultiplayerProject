@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(menuName = "Player/Create Player Data", fileName = "PlayerData")]
-public class PlayerData : ScriptableObject
+public class PlayerInfoManager : Singleton<PlayerInfoManager>
 {
+    public string ID;
+    public string IsReady;
     public bool LockInput;
     public string Name;
     public Transform EyesPosition;

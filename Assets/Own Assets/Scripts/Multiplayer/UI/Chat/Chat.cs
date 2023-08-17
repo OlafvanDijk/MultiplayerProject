@@ -23,9 +23,6 @@ public class Chat : NetworkBehaviour
     [SerializeField] private Transform _tabButtonParent;
     [SerializeField] private List<ChatTab> tabs;
 
-    [Header("Player")]
-    [SerializeField] private PlayerData _playerData;
-
     [HideInInspector] public bool IsActive;
 
     public static UnityEvent<string, EMessageType> E_SendMessage = new();
@@ -35,9 +32,12 @@ public class Chat : NetworkBehaviour
 
     private NetworkVariable<ChatMessage> _message = new();
 
-    #region AddListeners
+    private PlayerInfoManager _playerInfoManager;
+
+    #region Add Listeners
     public override void OnNetworkSpawn()
     {
+        _playerInfoManager = PlayerInfoManager.Instance;
         GenerateTabs();
         E_SendMessage.AddListener(OnSendMessage);
         _message.OnValueChanged += OnMessageChanged;
@@ -47,7 +47,7 @@ public class Chat : NetworkBehaviour
     {
         E_SendMessage.RemoveListener(OnSendMessage);
         _message.OnValueChanged -= OnMessageChanged;
-        _playerData.LockInput = false;
+        _playerInfoManager.LockInput = false;
     }
 
     private void OnEnable()
@@ -62,6 +62,10 @@ public class Chat : NetworkBehaviour
     #endregion
 
     #region Action Listeners
+    /// <summary>
+    /// Send message on submit.
+    /// </summary>
+    /// <param name="callback"></param>
     private void PressedSubmit(InputAction.CallbackContext callback)
     {
         if (!IsActive)
@@ -86,12 +90,19 @@ public class Chat : NetworkBehaviour
         SelectInput();
     }
 
+    /// <summary>
+    /// Hides chat when pressing cancel.
+    /// </summary>
+    /// <param name="callback"></param>
     private void PressedCancel(InputAction.CallbackContext callback)
     {
         ShowChat(false);
     }
     #endregion
 
+    /// <summary>
+    /// Generate tabs based on the prefilled tab list.
+    /// </summary>
     private void GenerateTabs()
     {
         foreach (ChatTab tab in tabs)
@@ -112,11 +123,16 @@ public class Chat : NetworkBehaviour
         tabs[0].OnClickTab();
     }
 
+    /// <summary>
+    /// Show or hide the chat based on the given bool.
+    /// Locks input when chat is visible.
+    /// </summary>
+    /// <param name="show">Show the chat.</param>
     private void ShowChat(bool show)
     {
         _chatMainObject.SetActive(show);
         _chatShown = show;
-        _playerData.LockInput = show;
+        _playerInfoManager.LockInput = show;
         Cursor.visible = show;
         Cursor.lockState = show ? CursorLockMode.None : CursorLockMode.Locked;
 
@@ -132,13 +148,18 @@ public class Chat : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Sends the message to either everyone or the local chat.
+    /// </summary>
+    /// <param name="message">Typed message.</param>
+    /// <param name="messageType">Type of the message.</param>
     private void OnSendMessage(string message, EMessageType messageType)
     {
         TimeSpan timeNow = DateTime.Now.TimeOfDay;
         string time = $"[{string.Format("{0:d2}", timeNow.Hours)}:{string.Format("{0:d2}", timeNow.Minutes)}:{string.Format("{0:d2}", timeNow.Seconds)}]";
         ChatMessage chatMessage = new ChatMessage()
         {
-            Message = $"{time} {_playerData.Name}: {message}",
+            Message = $"{time} {_playerInfoManager.Name}: {message}",
             MessageType = messageType
         };
 
@@ -152,6 +173,11 @@ public class Chat : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// On message networkvariable value change show it in the chat.
+    /// </summary>
+    /// <param name="previousMessage"></param>
+    /// <param name="newMessage"></param>
     private void OnMessageChanged(ChatMessage previousMessage, ChatMessage newMessage)
     {
         if (IsServer && !IsClient)
@@ -159,6 +185,11 @@ public class Chat : NetworkBehaviour
         ShowMessage(newMessage);
     }
 
+    /// <summary>
+    /// Adds message to corresponding tabs.
+    /// If no tab was found then message will be put in the global tab.
+    /// </summary>
+    /// <param name="message">Message to display.</param>
     public void ShowMessage(ChatMessage message)
     {
         if (message.MessageType == EMessageType.Error && !_chatShown)
@@ -174,12 +205,19 @@ public class Chat : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Focus inputfield.
+    /// </summary>
     private void SelectInput()
     {
         _inputField.ActivateInputField();
         _inputField.Select();
     }
 
+    /// <summary>
+    /// Hides current tab and shows given tab.
+    /// </summary>
+    /// <param name="tab">Tab to open.</param>
     private void OnShowTab(ChatTab tab)
     {
         if(_currentTab != null)
@@ -187,6 +225,10 @@ public class Chat : NetworkBehaviour
         _currentTab = tab;
     }
 
+    /// <summary>
+    /// Sets the message networkvariable value, updating all clients with the new message.
+    /// </summary>
+    /// <param name="chatMessage"></param>
     [ServerRpc(RequireOwnership = false)]
     private void SendMessageServerRpc(ChatMessage chatMessage)
     {

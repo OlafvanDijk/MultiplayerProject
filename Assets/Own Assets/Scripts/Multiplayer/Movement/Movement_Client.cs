@@ -9,8 +9,6 @@ public class Movement_Client : NetworkBehaviour
     [SerializeField] private Movement _movement;
     [SerializeField] private Movement_Server _movementServer;
 
-    [SerializeField] private PlayerData _playerData;
-
     private int _tick = 0;
     private float _tickrate = 1f / 60f;
     private float _tickDeltaTime = 0f;
@@ -58,7 +56,7 @@ public class Movement_Client : NetworkBehaviour
     /// </summary>
     private void Update()
     {
-        if (_playerData.LockInput)
+        if (PlayerInfoManager.Instance.LockInput)
             return;
 
         if (IsClient && IsLocalPlayer)

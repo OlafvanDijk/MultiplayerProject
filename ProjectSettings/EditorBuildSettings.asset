@@ -21,6 +21,18 @@ EditorBuildSettings:
     path: Assets/FPS/Scenes/SecondaryScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/Own Assets/Scenes/Initialisation.unity
+    guid: 49d3491c1ab6afc4992d505f32a41ed3
+  - enabled: 1
+    path: Assets/Own Assets/Scenes/Loading.unity
+    guid: 98fc4d16b649dd2458e4483851d23f32
+  - enabled: 1
+    path: Assets/Own Assets/Scenes/MainMenu.unity
+    guid: 93ee89cb583e3f745a204a12099d5f39
+  - enabled: 1
+    path: Assets/Own Assets/Scenes/Lobby.unity
+    guid: a73df5429347b3b478c02812c7c2e172
+  - enabled: 1
     path: Assets/Own Assets/Scenes/MultiplayerSimple.unity
     guid: 6dbd02b9438dd4a459730219ccff2d65
   m_configObjects: {}
