@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
+using Game.Data;
 
 namespace Game
 {
@@ -34,22 +36,11 @@ namespace Game
         /// <returns>True if lobby has been created.</returns>
         public async Task<bool> CreateLobby()
         {
-            LobbyPlayerData playerData = new();
-            playerData.Init(AuthenticationService.Instance.PlayerId, "HostPlayer");
             //Dictionary<string, string> playerData = new()
             //{
             //    { _playerInfoManager.Name, "HostPlayer" }
             //};
-            return await LobbyManager.Instance.CreateLobby(4, true, playerData.Serialize());
-        }
-
-        /// <summary>
-        /// Returns the lobby code.
-        /// </summary>
-        /// <returns>Lobby code.</returns>
-        public string GetLobbyCode()
-        {
-            return LobbyManager.Instance.GetLobbyCode();
+            return await LobbyManager.Instance.CreateLobby(4, true, GetLobbyPlayerData());
         }
 
         /// <summary>
@@ -63,9 +54,7 @@ namespace Game
             //{
             //    { _playerInfoManager.Name, "HostPlayer" }
             //};
-            LobbyPlayerData playerData = new();
-            playerData.Init(AuthenticationService.Instance.PlayerId, "HostPlayer");
-            return await LobbyManager.Instance.JoinLobby(code, playerData.Serialize());
+            return await LobbyManager.Instance.JoinLobby(code, GetLobbyPlayerData());
         }
 
         /// <summary>
@@ -90,6 +79,37 @@ namespace Game
             }
 
             Events.LobbyEvents.OnLobbyUpdated?.Invoke();
+        }
+
+        /// <summary>
+        /// Returns the lobby code.
+        /// </summary>
+        /// <returns>Lobby code.</returns>
+        public string GetLobbyCode()
+        {
+            return LobbyManager.Instance.GetLobbyCode();
+        }
+
+        /// <summary>
+        /// Get all player data.
+        /// </summary>
+        /// <returns>List of lobby player data.</returns>
+        public List<LobbyPlayerData> GetPlayers()
+        {
+            return _lobbyPlayerData;
+        }
+
+        public async Task<bool> SetPlayerReady()
+        {
+            _localLobbyPlayerData.IsReady = true;
+            return await LobbyManager.Instance.UpdatePlayerData(_localLobbyPlayerData.ID, _localLobbyPlayerData.Serialize());
+        }
+
+        private Dictionary<string, string> GetLobbyPlayerData()
+        {
+            LobbyPlayerData playerData = new();
+            playerData.Init(AuthenticationService.Instance.PlayerId, _playerInfoManager.Name);
+            return playerData.Serialize();
         }
     }
 }

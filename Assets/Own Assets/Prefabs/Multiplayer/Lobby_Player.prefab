@@ -1017,6 +1017,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8201001919042803444}
   - component: {fileID: 2266016369223887328}
+  - component: {fileID: 2428998865795773066}
   m_Layer: 0
   m_Name: Lobby_Player
   m_TagString: Untagged
@@ -1057,6 +1058,19 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &2428998865795773066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8201001919042803442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cddfd5af439e0b14aa80eb9d2909edb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameField: {fileID: 2303200962537982288}
 --- !u!1 &8261523087633191040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1152,7 +1166,6 @@ GameObject:
   - component: {fileID: 1659261674211528975}
   - component: {fileID: 2074745379017627015}
   - component: {fileID: 8993330142030248662}
-  - component: {fileID: 919688668648507744}
   m_Layer: 0
   m_Name: PlayerName
   m_TagString: Untagged
@@ -1242,27 +1255,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 3455
---- !u!114 &919688668648507744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8470477072180476482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27aaa0ccd522ce743bdf81f131b0fe42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerData: {fileID: 11400000, guid: f5016eef080b44141b3489eeecf26f67, type: 2}
-  _canvas: {fileID: 7379074029375214873}
-  _playerNameField: {fileID: 2303200962537982288}
-  _ignoreCamera: 1
-  _ignoreCameraMask:
-    serializedVersion: 2
-    m_Bits: 8
-  _lookAt: {fileID: 0}
-  _destroyLookAtIfPlayer: 1
 --- !u!1 &8769993371928049881
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Unity.Services.Lobbies.Models;
 
-namespace Game
+namespace Game.Data
 {
     public class LobbyPlayerData
     {
