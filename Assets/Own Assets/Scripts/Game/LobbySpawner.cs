@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using Game.Data;
 
@@ -10,6 +7,8 @@ namespace Game
     public class LobbySpawner : MonoBehaviour
     {
         [SerializeField] private List<LobbyPlayer> _players;
+
+        private Dictionary<string, LobbyPlayer> _playersJoined = new();
 
         private void OnEnable()
         {
@@ -24,10 +23,42 @@ namespace Game
         private void OnLobbyUpdated()
         {
             List<LobbyPlayerData> playerData = GameLobbyManager.Instance.GetPlayers();
-            for (int i = 0; i < playerData.Count; i++)
+            CheckPlayersLeft(playerData);
+
+            foreach (LobbyPlayerData data in playerData)
             {
-                LobbyPlayerData data = playerData[i];
-                _players[i].SetData(data);
+                string ID = data.ID;
+                                if (_playersJoined.ContainsKey(ID))
+                {
+                    _playersJoined[ID].SetDataExternal(data);
+                }
+                else
+                {
+                    LobbyPlayer player = _players.Find(p => !p.ID.Equals(ID) && !_playersJoined.ContainsKey(p.ID));
+                    _playersJoined.Add(ID, player);
+                    player.SetDataExternal(data);
+                }
+            }
+        }
+
+        private void CheckPlayersLeft(List<LobbyPlayerData> playerData)
+        {
+            if (_playersJoined.Count == 0)
+                return;
+
+            List<string> playersToRemove = new();
+            foreach ((string ID, LobbyPlayer player) in _playersJoined)
+            {
+                if (playerData.Find(pd => pd.ID.Equals(ID)) != null)
+                    return;
+                playersToRemove.Add(ID);
+                Debug.Log($"Player {player.Name} left");
+            }
+
+            foreach (string ID in playersToRemove)
+            {
+                _playersJoined[ID].PlayerLeft();
+                _playersJoined.Remove(ID);
             }
         }
     }

@@ -4,6 +4,8 @@ using Game.Data;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using Game;
+using Unity.Services.Lobbies.Models;
 
 public class ChooseMapUI : MonoBehaviour
 {
@@ -22,55 +24,84 @@ public class ChooseMapUI : MonoBehaviour
     [SerializeField] private Transform _grid;
     [SerializeField] private TMP_Dropdown _difficultyDropdown;
 
+    private int _mapIndex;
+    private string _difficulty;
     private MapItemUI _currentSelected;
 
-    private void Awake()
+    public void Init()
     {
-        gameObject.SetActive(false);
-        _difficultyDropdown.onValueChanged.AddListener(OnDropdownChanged);
-        _chooseMapButton.onClick.AddListener(OnChooseMap);
-        _selectButton.onClick.AddListener(OnSelect);
-
-        List<MapInfo> allMapsInfo = _mapSelectionData.Maps;
-        for (int i = 0; i < allMapsInfo.Count; i++)
+        if (GameLobbyManager.Instance.IsHost)
         {
-            MapInfo mapInfo = allMapsInfo[i];
-            GameObject mapItemObject = Instantiate(_mapItemPrefab, _grid);
-            MapItemUI mapItem = mapItemObject.GetComponent<MapItemUI>();
-            mapItem.Init(mapInfo);
-            mapItem.E_MapChosen.AddListener(MapChosen);
+            _difficultyDropdown.onValueChanged.AddListener(OnDropdownChanged);
+            _chooseMapButton.onClick.AddListener(OnChooseMap);
+            _selectButton.onClick.AddListener(OnSelect);
 
-            if (i == 0)
-                mapItem.ChooseMap();
+            List<MapInfo> allMapsInfo = _mapSelectionData.Maps;
+            for (int i = 0; i < allMapsInfo.Count; i++)
+            {
+                MapInfo mapInfo = allMapsInfo[i];
+                GameObject mapItemObject = Instantiate(_mapItemPrefab, _grid);
+                MapItemUI mapItem = mapItemObject.GetComponent<MapItemUI>();
+                mapItem.Init(mapInfo);
+                mapItem.E_MapChosen.AddListener(MapChosen);
+
+                if (i == 0)
+                    mapItem.ChooseMap();
+            }
         }
+        else
+        {
+            Game.Events.LobbyEvents.OnLobbyUpdated += OnLobbyUpdated;
+            _chooseMapButton.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnLobbyUpdated()
+    {
+        Tuple<int, string> mapData = GameLobbyManager.Instance.GetLobbyMapData();
+        _mapIndex = mapData.Item1;
+        _difficulty = mapData.Item2;
+        ShowLocalMap();
     }
 
     private void MapChosen(MapItemUI mapItem)
     {
+        if (_currentSelected == mapItem)
+            return;
+
         if(_currentSelected)
             _currentSelected.Deselect();
         _currentSelected = mapItem;
-        ShowLocalMap();
-        //TODO show it to everyone
+        _mapIndex = _mapSelectionData.Maps.IndexOf(_currentSelected.MapInfo);
     }
 
     private void ShowLocalMap()
     {
-        _currentMapImage.sprite = _currentSelected.MapInfo.MapSprite;
-        _currentMapNameField.text = $"Map: {_currentSelected.MapInfo.MapName}";
+        MapInfo mapInfo = _mapSelectionData.Maps[_mapIndex];
+        _currentMapImage.sprite = mapInfo.MapSprite;
+        _currentMapNameField.text = $"Map: {mapInfo.MapName}";
+        _difficultyField.text = $"Difficulty: {_difficulty}";
     }
     private void OnDropdownChanged(int index)
     {
-        _difficultyField.text = $"Difficulty: {_difficultyDropdown.options[index].text}";
+        _difficulty = _difficultyDropdown.options[index].text;
     }
 
-    private void OnSelect()
+    private async void OnSelect()
     {
+        await GameLobbyManager.Instance.SetSelectedMap(_mapIndex, _difficulty);
+        ShowLocalMap();
         gameObject.SetActive(false);
     }
 
     private void OnChooseMap()
     {
         gameObject.SetActive(true);
+    }
+
+    private void OnDestroy()
+    {
+        if (!GameLobbyManager.Instance.IsHost)
+            Game.Events.LobbyEvents.OnLobbyUpdated -= OnLobbyUpdated;
     }
 }

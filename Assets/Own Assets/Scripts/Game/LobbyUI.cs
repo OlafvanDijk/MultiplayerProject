@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System;
 
 namespace Game
 {
@@ -13,7 +10,9 @@ namespace Game
         [SerializeField] private Button _startGameButton;
         [SerializeField] private Button _readyButton;
         [SerializeField] private TextMeshProUGUI _readyButtonText;
+        [SerializeField] private ChooseMapUI _chooseMapUI;
 
+        private bool _isReady;
 
         private void OnEnable()
         {
@@ -27,16 +26,15 @@ namespace Game
 
         private void Start()
         {
+            _chooseMapUI.Init();
             _codeField.text = $"Lobby Code: {GameLobbyManager.Instance.GetLobbyCode()}";
         }
 
         private async void OnReadyPressed()
         {
             bool succeed = await GameLobbyManager.Instance.SetPlayerReady();
-            if (succeed)
-            {
-                _readyButtonText.text = "Not Ready";
-            }
+            _isReady = !_isReady;
+            _readyButtonText.text = _isReady ? "Not Ready" : "Ready";
         }
     }
 }

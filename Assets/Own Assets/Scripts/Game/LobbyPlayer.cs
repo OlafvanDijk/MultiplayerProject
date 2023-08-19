@@ -11,17 +11,47 @@ namespace Game
         [SerializeField] private TextMeshProUGUI _nameField;
         [SerializeField] private GameObject _readyObject;
         [SerializeField] private SwitchObjectActive switchObjectActive;
-       
+
+        public string ID
+        {
+            get
+            {
+                if (_playerData != null)
+                    return _playerData.ID;
+                return string.Empty;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                if (_playerData != null)
+                    return _playerData.Name;
+                return string.Empty;
+            }
+        }
+
         private LobbyPlayerData _playerData;
 
-        public void SetData(LobbyPlayerData playerData)
+        public void SetDataExternal(LobbyPlayerData playerData)
+        {
+            SetDataInternal(playerData, playerData.Name, playerData.IsReady, true, true);
+        }
+
+        public void PlayerLeft()
+        {
+            SetDataInternal(null, string.Empty, false, false, false);
+        }
+
+        private void SetDataInternal(LobbyPlayerData playerData, string name, bool isReady, bool showReady, bool showPlayer)
         {
             _playerData = playerData;
-            _nameField.text = playerData.Name;
+            _nameField.text = name;
 
-            switchObjectActive.Activate(_playerData.IsReady);
-            _readyObject.SetActive(true);
-            gameObject.SetActive(true);
+            switchObjectActive.Activate(isReady);
+            _readyObject.SetActive(showReady);
+            gameObject.SetActive(showPlayer);
         }
     }
 }
