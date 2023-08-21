@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using Unity.Netcode;
 using System.Linq;
 using System;
+using Game;
 
 public class PlayerNetwork : NetworkBehaviour
 {

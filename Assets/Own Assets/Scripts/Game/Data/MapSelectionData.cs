@@ -15,6 +15,6 @@ namespace Game.Data
     {
         public Sprite MapSprite;
         public string MapName;
-        public SceneReference SceneName;
+        public SceneReference SceneReference;
     }
 }

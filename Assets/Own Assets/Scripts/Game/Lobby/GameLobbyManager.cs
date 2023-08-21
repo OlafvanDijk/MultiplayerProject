@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
 using Game.Data;
+using Game.Events;
 using UnityEngine;
 
 namespace Game
@@ -18,7 +19,11 @@ namespace Game
                     return false;
                 return LobbyManager.Instance.IsHost(_localLobbyPlayerData.ID);
             }
-        } 
+        }
+
+        private bool _inGame;
+        private bool _lobbyReady;
+        private int _maxNumberOfPlayers = 4;
 
         private PlayerInfoManager _playerInfoManager;
 
@@ -33,12 +38,12 @@ namespace Game
 
         private void OnEnable()
         {
-            LobbyEvents.OnLobbyUpdated += OnLobbyUpdated;
+            LobbyEvents.E_NewLobbyData.AddListener(OnLobbyUpdated);
         }
 
         private void OnDisable()
         {
-            LobbyEvents.OnLobbyUpdated -= OnLobbyUpdated;
+            LobbyEvents.E_NewLobbyData.RemoveListener(OnLobbyUpdated);
         }
 
         /// <summary>
@@ -51,7 +56,7 @@ namespace Game
             //{
             //    { _playerInfoManager.Name, "HostPlayer" }
             //};
-            return await LobbyManager.Instance.CreateLobby(4, true, GetLobbyPlayerData(), GetLobbyData());
+            return await LobbyManager.Instance.CreateLobby(_maxNumberOfPlayers, true, GetLobbyPlayerData(), GetLobbyData());
         }
 
         /// <summary>
@@ -68,6 +73,33 @@ namespace Game
             return await LobbyManager.Instance.JoinLobby(code, GetLobbyPlayerData());
         }
 
+        public async Task StartGame(string scenePath)
+        {
+            string relayJoinCode = await RelayManager.Instance.CreateRelay(_maxNumberOfPlayers);
+            _inGame = true;
+
+            _lobbyData.RelayJoinCode = relayJoinCode;
+            await LobbyManager.Instance.UpdateLobbyData(_lobbyData.Serialize());
+
+            await UpdatePlayerDataOnJoinGame();
+            LoadScene.E_LoadSceneWithPath.Invoke(scenePath);
+        }
+
+        private async Task<bool> JoinRelayServer(string relayJoinCode)
+        {
+            await RelayManager.Instance.JoinRelay(relayJoinCode);
+            _inGame = true;
+            await UpdatePlayerDataOnJoinGame();
+            return true;
+        }
+
+        private async Task UpdatePlayerDataOnJoinGame()
+        {
+            string allocationID = RelayManager.Instance.AllocationID;
+            string connectionData = RelayManager.Instance.ConnectionData;
+            await LobbyManager.Instance.UpdatePlayerData(_localLobbyPlayerData.ID, _localLobbyPlayerData.Serialize(), allocationID, connectionData);
+        }
+
         public Tuple<int, string> GetLobbyMapData()
         {
             return new Tuple<int, string>(_lobbyData.MapIndex, _lobbyData.Difficulty);
@@ -77,12 +109,15 @@ namespace Game
         /// Update local lobby data and lobby player data on lobby update.
         /// </summary>
         /// <param name="lobby">Updated lobby.</param>
-        private void OnLobbyUpdated(Lobby lobby)
+        private async void OnLobbyUpdated(Lobby lobby)
         {
             List<Dictionary<string, PlayerDataObject>> playerData = LobbyManager.Instance.GetPlayersData();
             _lobbyPlayerData.Clear();
             Debug.Log($"Amount of players: {playerData.Count}");
             string playerID = AuthenticationService.Instance.PlayerId;
+
+            int playersReady = 0;
+
             foreach (Dictionary<string, PlayerDataObject> data in playerData)
             {
                 LobbyPlayerData lobbyPlayerData = new();
@@ -93,12 +128,43 @@ namespace Game
                     _localLobbyPlayerData = lobbyPlayerData;
                 }
 
+                if (lobbyPlayerData.IsReady)
+                    playersReady++;
+
                 _lobbyPlayerData.Add(lobbyPlayerData);
             }
             _lobbyData = new LobbyData();
             _lobbyData.Initialize(lobby.Data);
 
-            Events.LobbyEvents.OnLobbyUpdated?.Invoke();
+            LobbyEvents.E_LobbyUpdated?.Invoke();
+
+            if (_inGame)
+                return;
+
+            CheckLobbyReady(playersReady, playerData.Count);
+
+            if (_lobbyData.RelayJoinCode != default)
+            {
+                await JoinRelayServer(_lobbyData.RelayJoinCode);
+                LoadScene.E_LoadSceneWithMapIndex.Invoke(_lobbyData.MapIndex);
+            }
+        }
+
+        private void CheckLobbyReady(int playersReady, int totalPlayerCount)
+        {
+            if (playersReady == totalPlayerCount)
+            {
+                if (!_lobbyReady)
+                {
+                    _lobbyReady = true;
+                    LobbyEvents.E_OnLobbyReadyChanged?.Invoke(true);
+                }
+            }
+            else
+            {
+                _lobbyReady = false;
+                LobbyEvents.E_OnLobbyReadyChanged?.Invoke(false);
+            }
         }
 
         public async Task<bool> SetSelectedMap(int mapIndex, string difficulty)

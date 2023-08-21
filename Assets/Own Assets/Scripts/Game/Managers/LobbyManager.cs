@@ -6,12 +6,12 @@ using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Authentication;
 using System;
+using Game.Events;
 
 public class LobbyManager : Singleton<LobbyManager>
 {
     private Lobby _lobby;
     private Player _player;
-    private Coroutine _heartbeatCoroutine;
 
     public bool IsHost(string ID)
     {
@@ -20,8 +20,6 @@ public class LobbyManager : Singleton<LobbyManager>
 
         return _lobby.HostId == ID;
     }
-
-    private Coroutine _refreshCoroutine;
 
     /// <summary>
     /// Creates a lobby. If succeeded it will start a heartbeat Coroutine to keep the lobby active.
@@ -56,8 +54,8 @@ public class LobbyManager : Singleton<LobbyManager>
         
         Debug.Log($"Lobby created with ID: {_lobby.Id}");
 
-        _heartbeatCoroutine = StartCoroutine(HeartbeatLobbyCoroutine(6f));
-        _refreshCoroutine = StartCoroutine(RefreshLobbyCoroutine(1f));
+        StartCoroutine(HeartbeatLobbyCoroutine(6f));
+        StartCoroutine(RefreshLobbyCoroutine(1f));
         return true;
     }
 
@@ -109,12 +107,14 @@ public class LobbyManager : Singleton<LobbyManager>
     /// <param name="playerID"></param>
     /// <param name="data"></param>
     /// <returns></returns>
-    public async Task<bool> UpdatePlayerData(string playerID, Dictionary<string, string> data)
+    public async Task<bool> UpdatePlayerData(string playerID, Dictionary<string, string> data, string allocationID = default, string connectionData = default)
     {
         Dictionary<string, PlayerDataObject> playerData = SerlializePlayerData(data);
         UpdatePlayerOptions options = new()
         {
-            Data = playerData
+            Data = playerData,
+            AllocationId = allocationID,
+            ConnectionInfo = connectionData
         };
 
         try
@@ -126,7 +126,7 @@ public class LobbyManager : Singleton<LobbyManager>
             return false;
         }
 
-        LobbyEvents.OnLobbyUpdated?.Invoke(_lobby);
+        LobbyEvents.E_NewLobbyData?.Invoke(_lobby);
         return true;
     }
 
@@ -145,7 +145,7 @@ public class LobbyManager : Singleton<LobbyManager>
 
         try
         {
-            await LobbyService.Instance.UpdateLobbyAsync(_lobby.Id, options);
+            _lobby = await LobbyService.Instance.UpdateLobbyAsync(_lobby.Id, options);
         }
         catch (Exception e)
         {
@@ -154,7 +154,7 @@ public class LobbyManager : Singleton<LobbyManager>
             return false;
         }
 
-        LobbyEvents.OnLobbyUpdated?.Invoke(_lobby);
+        LobbyEvents.E_NewLobbyData?.Invoke(_lobby);
         return true;
     }
 
@@ -242,7 +242,7 @@ public class LobbyManager : Singleton<LobbyManager>
             if (newLobby.LastUpdated > _lobby.LastUpdated)
             {
                 _lobby = newLobby;
-                LobbyEvents.OnLobbyUpdated?.Invoke(_lobby);
+                LobbyEvents.E_NewLobbyData?.Invoke(_lobby);
             }
 
             yield return new WaitForSecondsRealtime(interval);

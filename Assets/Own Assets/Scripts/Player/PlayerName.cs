@@ -1,8 +1,8 @@
+using Game;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using Unity.Collections;
-using Sirenix.OdinInspector;
 
 public class PlayerName : NetworkBehaviour
 {

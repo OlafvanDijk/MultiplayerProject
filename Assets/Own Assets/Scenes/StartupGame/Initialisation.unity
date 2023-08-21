@@ -133,6 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 380337658}
   - component: {fileID: 380337659}
+  - component: {fileID: 380337661}
+  - component: {fileID: 380337660}
   m_Layer: 0
   m_Name: LoadScene
   m_TagString: Untagged
@@ -169,7 +171,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingScene:
     sceneAsset: {fileID: 102900000, guid: 98fc4d16b649dd2458e4483851d23f32, type: 3}
-    scenePath: Assets/Own Assets/Scenes/Loading.unity
+    scenePath: Assets/Own Assets/Scenes/StartupGame/Loading.unity
+  _mapSelectionData: {fileID: 11400000, guid: 94dc98266860fdb4ea16b2ec038d92d5, type: 2}
+--- !u!114 &380337660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380337657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a40f93ae5a4edc4ea49cee90a3c95ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &380337661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380337657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e70d0fd53270a94091c791c4c26ce7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsHost: 0
+  ID: 
+  IsReady: 
+  LockInput: 0
+  Name: 
+  EyesPosition: {fileID: 0}
+  E_OnNameChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &741206055
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainMenuScene:
     sceneAsset: {fileID: 102900000, guid: 93ee89cb583e3f745a204a12099d5f39, type: 3}
-    scenePath: Assets/Own Assets/Scenes/MainMenu.unity
+    scenePath: Assets/Own Assets/Scenes/StartupGame/MainMenu.unity
 --- !u!4 &1657181526
 Transform:
   m_ObjectHideFlags: 0

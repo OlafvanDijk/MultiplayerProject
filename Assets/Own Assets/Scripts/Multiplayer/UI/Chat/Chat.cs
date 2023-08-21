@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using System;
 using UnityEngine.UI;
 using Unity.Netcode;
-
+using Game;
 public class Chat : NetworkBehaviour
 {
     [Header("Input")]
@@ -23,7 +23,7 @@ public class Chat : NetworkBehaviour
     [SerializeField] private Transform _tabButtonParent;
     [SerializeField] private List<ChatTab> tabs;
 
-    [HideInInspector] public bool IsActive;
+    public bool IsActive;
 
     public static UnityEvent<string, EMessageType> E_SendMessage = new();
 

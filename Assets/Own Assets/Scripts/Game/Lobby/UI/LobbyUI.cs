@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Game.Events;
 
 namespace Game
 {
@@ -17,11 +18,27 @@ namespace Game
         private void OnEnable()
         {
             _readyButton.onClick.AddListener(OnReadyPressed);
+            _startGameButton.onClick.AddListener(OnStartPressed);
+            if (GameLobbyManager.Instance.IsHost)
+                LobbyEvents.E_OnLobbyReadyChanged.AddListener(OnLobbyReadyChanged);
+        }
+
+        private void Awake()
+        {
+            _startGameButton.gameObject.SetActive(false);
         }
 
         private void OnDisable()
         {
             _readyButton.onClick.RemoveListener(OnReadyPressed);
+            _startGameButton.onClick.RemoveListener(OnStartPressed);
+            if (GameLobbyManager.Instance.IsHost)
+                LobbyEvents.E_OnLobbyReadyChanged.RemoveListener(OnLobbyReadyChanged);
+        }
+
+        private void OnLobbyReadyChanged(bool ready)
+        {
+            _startGameButton.gameObject.SetActive(ready);
         }
 
         private void Start()
@@ -35,6 +52,11 @@ namespace Game
             bool succeed = await GameLobbyManager.Instance.SetPlayerReady();
             _isReady = !_isReady;
             _readyButtonText.text = _isReady ? "Not Ready" : "Ready";
+        }
+
+        private async void OnStartPressed()
+        {
+            await GameLobbyManager.Instance.StartGame(_chooseMapUI.ScenePath);
         }
     }
 }

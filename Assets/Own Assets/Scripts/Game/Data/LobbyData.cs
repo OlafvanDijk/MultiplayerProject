@@ -11,10 +11,21 @@ namespace Game.Data
     {
         private int _mapIndex;
         private string _difficulty;
+        private string _relayJoinCode;
 
         public int MapIndex => _mapIndex;
-
         public string Difficulty => _difficulty;
+        public string RelayJoinCode
+        {
+            get
+            {
+                return _relayJoinCode;
+            }
+            set
+            {
+                _relayJoinCode = value;
+            }
+        }
 
         public void Initialize(int mapIndex, string difficulty)
         {
@@ -38,14 +49,19 @@ namespace Game.Data
             {
                 _difficulty = lobbyData["Difficulty"].Value;
             }
+            if (lobbyData.ContainsKey("Difficulty"))
+            {
+                _relayJoinCode = lobbyData["RelayJoinCode"].Value;
+            }
         }
 
         public Dictionary<string, string> Serialize()
         {
             return new Dictionary<string, string>()
             {
-                {"MapIndex", _mapIndex.ToString() },
-                {"Difficulty", _difficulty }
+                { "MapIndex", _mapIndex.ToString() },
+                { "Difficulty", _difficulty },
+                { "RelayJoinCode", _relayJoinCode }
             };
         }
     }

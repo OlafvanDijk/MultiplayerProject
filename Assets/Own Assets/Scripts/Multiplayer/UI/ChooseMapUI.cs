@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Game;
+using Game.Events;
 using Unity.Services.Lobbies.Models;
 
 public class ChooseMapUI : MonoBehaviour
@@ -27,6 +28,14 @@ public class ChooseMapUI : MonoBehaviour
     private int _mapIndex;
     private string _difficulty;
     private MapItemUI _currentSelected;
+
+    public string ScenePath
+    {
+        get
+        {
+            return _mapSelectionData.Maps[_mapIndex].SceneReference.ScenePath;
+        }
+    }
 
     public void Init()
     {
@@ -51,7 +60,7 @@ public class ChooseMapUI : MonoBehaviour
         }
         else
         {
-            Game.Events.LobbyEvents.OnLobbyUpdated += OnLobbyUpdated;
+            LobbyEvents.E_LobbyUpdated.AddListener(OnLobbyUpdated);
             _chooseMapButton.gameObject.SetActive(false);
         }
     }
@@ -102,6 +111,6 @@ public class ChooseMapUI : MonoBehaviour
     private void OnDestroy()
     {
         if (!GameLobbyManager.Instance.IsHost)
-            Game.Events.LobbyEvents.OnLobbyUpdated -= OnLobbyUpdated;
+            LobbyEvents.E_LobbyUpdated.RemoveListener(OnLobbyUpdated);
     }
 }

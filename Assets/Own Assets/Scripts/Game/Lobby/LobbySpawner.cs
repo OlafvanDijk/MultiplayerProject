@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Data;
+using Game.Events;
 
 namespace Game
 {
@@ -12,12 +13,12 @@ namespace Game
 
         private void OnEnable()
         {
-            Events.LobbyEvents.OnLobbyUpdated += OnLobbyUpdated;
+            LobbyEvents.E_LobbyUpdated.AddListener(OnLobbyUpdated);
         }
 
         private void OnDisable()
         {
-            Events.LobbyEvents.OnLobbyUpdated -= OnLobbyUpdated;
+            LobbyEvents.E_LobbyUpdated.RemoveListener(OnLobbyUpdated);
         }
 
         private void OnLobbyUpdated()
