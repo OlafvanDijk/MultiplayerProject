@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
 using System;
 using System.Linq;
 
@@ -68,5 +67,12 @@ public static class Helper
         }
     }
 
-
+    /// <summary>
+    /// Copies given string to the clipboard.
+    /// </summary>
+    /// <param name="toCopy">String to copy.</param>
+    public static void CopyToClipBoard(this string toCopy)
+    {
+        GUIUtility.systemCopyBuffer = toCopy;
+    }
 }

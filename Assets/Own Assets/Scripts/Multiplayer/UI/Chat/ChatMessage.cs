@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Netcode;
 using System;
+using Unity.Netcode;
 using Unity.Collections;
 
 public struct ChatMessage : INetworkSerializable
 {
-    public FixedString128Bytes Message;
+    public FixedString512Bytes Message;
     public EMessageType MessageType;
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter

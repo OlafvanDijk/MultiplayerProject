@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Game.Events;
+using System;
 
 namespace Game
 {
@@ -10,17 +11,28 @@ namespace Game
         [SerializeField] private TextMeshProUGUI _codeField;
         [SerializeField] private Button _startGameButton;
         [SerializeField] private Button _readyButton;
+        [SerializeField] private Button _copyButton;
         [SerializeField] private TextMeshProUGUI _readyButtonText;
         [SerializeField] private ChooseMapUI _chooseMapUI;
 
         private bool _isReady;
 
+        private GameLobbyManager _gameLobbyManager;
+
         private void OnEnable()
         {
+            if (!_gameLobbyManager)
+                _gameLobbyManager = GameLobbyManager.Instance;
             _readyButton.onClick.AddListener(OnReadyPressed);
             _startGameButton.onClick.AddListener(OnStartPressed);
-            if (GameLobbyManager.Instance.IsHost)
+            _copyButton.onClick.AddListener(CopyLobbyCode);
+            if (_gameLobbyManager.IsHost)
                 LobbyEvents.E_OnLobbyReadyChanged.AddListener(OnLobbyReadyChanged);
+        }
+
+        private void CopyLobbyCode()
+        {
+            _gameLobbyManager.GetLobbyCode().CopyToClipBoard();
         }
 
         private void Awake()
@@ -32,7 +44,7 @@ namespace Game
         {
             _readyButton.onClick.RemoveListener(OnReadyPressed);
             _startGameButton.onClick.RemoveListener(OnStartPressed);
-            if (GameLobbyManager.Instance.IsHost)
+            if (_gameLobbyManager.IsHost)
                 LobbyEvents.E_OnLobbyReadyChanged.RemoveListener(OnLobbyReadyChanged);
         }
 
@@ -44,12 +56,12 @@ namespace Game
         private void Start()
         {
             _chooseMapUI.Init();
-            _codeField.text = $"Lobby Code: {GameLobbyManager.Instance.GetLobbyCode()}";
+            _codeField.text = $"Lobby Code: {_gameLobbyManager.GetLobbyCode()}";
         }
 
         private async void OnReadyPressed()
         {
-            bool succeed = await GameLobbyManager.Instance.SetPlayerReady();
+            bool succeed = await _gameLobbyManager.SetPlayerReady();
             _isReady = !_isReady;
             _readyButtonText.text = _isReady ? "Not Ready" : "Ready";
         }

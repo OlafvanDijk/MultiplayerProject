@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 380337658}
   - component: {fileID: 380337659}
   - component: {fileID: 380337661}
-  - component: {fileID: 380337660}
   m_Layer: 0
   m_Name: LoadScene
   m_TagString: Untagged
@@ -173,18 +172,6 @@ MonoBehaviour:
     sceneAsset: {fileID: 102900000, guid: 98fc4d16b649dd2458e4483851d23f32, type: 3}
     scenePath: Assets/Own Assets/Scenes/StartupGame/Loading.unity
   _mapSelectionData: {fileID: 11400000, guid: 94dc98266860fdb4ea16b2ec038d92d5, type: 2}
---- !u!114 &380337660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 380337657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a40f93ae5a4edc4ea49cee90a3c95ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &380337661
 MonoBehaviour:
   m_ObjectHideFlags: 0

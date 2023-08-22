@@ -57,16 +57,22 @@ public class Movement_Client : NetworkBehaviour
     /// </summary>
     private void Update()
     {
-        if (PlayerInfoManager.Instance.LockInput)
-            return;
-
         if (IsClient && IsLocalPlayer)
         {
-            Vector3 moveInput = _inputHandler.GetMoveInput();
-            Vector2 lookInput = _inputHandler.GetLookInput();
-            bool crouch = _inputHandler.GetCrouchInputDown();
-            bool sprint = _inputHandler.GetSprintInputHeld();
-            bool jump = _inputHandler.GetJumpInputDown();
+            Vector3 moveInput = default;
+            Vector2 lookInput = default;
+            bool crouch = false;
+            bool sprint = false;
+            bool jump = false;
+
+            if (!PlayerInfoManager.Instance.LockInput)
+            {
+                moveInput = _inputHandler.GetMoveInput();
+                lookInput = _inputHandler.GetLookInput();
+                crouch = _inputHandler.GetCrouchInputDown();
+                sprint = _inputHandler.GetSprintInputHeld();
+                jump = _inputHandler.GetJumpInputDown();
+            }
             ProcessLocalPlayerMovement(moveInput, lookInput, crouch, sprint, jump);
         }
         else

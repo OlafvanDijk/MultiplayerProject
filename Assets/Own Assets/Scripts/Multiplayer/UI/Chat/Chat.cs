@@ -7,6 +7,7 @@ using System;
 using UnityEngine.UI;
 using Unity.Netcode;
 using Game;
+
 public class Chat : NetworkBehaviour
 {
     [Header("Input")]
@@ -155,13 +156,21 @@ public class Chat : NetworkBehaviour
     /// <param name="messageType">Type of the message.</param>
     private void OnSendMessage(string message, EMessageType messageType)
     {
-        TimeSpan timeNow = DateTime.Now.TimeOfDay;
-        string time = $"[{string.Format("{0:d2}", timeNow.Hours)}:{string.Format("{0:d2}", timeNow.Minutes)}:{string.Format("{0:d2}", timeNow.Seconds)}]";
-        ChatMessage chatMessage = new ChatMessage()
+        ChatMessage chatMessage = new ChatMessage();
+        try
         {
-            Message = $"{time} {_playerInfoManager.Name}: {message}",
-            MessageType = messageType
-        };
+            TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            string time = $"[{string.Format("{0:d2}", timeNow.Hours)}:{string.Format("{0:d2}", timeNow.Minutes)}:{string.Format("{0:d2}", timeNow.Seconds)}]";
+            chatMessage.
+                Message = $"{time} {_playerInfoManager.Name}: {message}";
+            chatMessage.MessageType = messageType;
+        }
+        catch (Exception)
+        {
+            //Message was too big so we don't log it
+            //Otherwise we'll create an infinite loop as the log will also come through here.
+            return;
+        }
 
         if (messageType == EMessageType.Log || messageType == EMessageType.Error || messageType == EMessageType.Local)
         {
