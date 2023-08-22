@@ -1,7 +1,7 @@
-using UnityEngine;
-using Unity.Services.Core;
 using Unity.Services.Authentication;
-using UnityEngine.SceneManagement;
+using Unity.Services.Core;
+using UnityEngine;
+using Utility;
 
 namespace Game
 {

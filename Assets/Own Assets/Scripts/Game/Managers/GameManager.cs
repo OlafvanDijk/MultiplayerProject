@@ -1,8 +1,8 @@
-using UnityEngine;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using UnityEngine;
 
-namespace Game
+namespace Game.Managers
 {
     public class GameManager : MonoBehaviour
     {

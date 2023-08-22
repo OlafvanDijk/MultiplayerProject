@@ -1,6 +1,7 @@
-using UnityEngine;
+using Game.Managers;
 using Unity.Netcode;
-using Game;
+using UnityEngine;
+using Utility;
 
 public class Movement_Client : NetworkBehaviour
 {
@@ -22,33 +23,20 @@ public class Movement_Client : NetworkBehaviour
     private bool _triedSprintingThisTick;
     private bool _triedCrouchingThisTick;
 
+    /// <summary>
+    /// Add transform network variable listener.
+    /// </summary>
     private void OnEnable()
     {
         _movementServer.ServerTransformState.OnValueChanged += OnTransformStateChanged;
     }
 
+    /// <summary>
+    /// Remove transform network variable listener.
+    /// </summary>
     private void OnDisable()
     {
         _movementServer.ServerTransformState.OnValueChanged -= OnTransformStateChanged;
-    }
-
-    /// <summary>
-    /// Set tickrates and local player variable.
-    /// </summary>
-    public override void OnNetworkSpawn()
-    {
-        _movement.IsLocalPlayer = IsLocalPlayer;
-        _movement.SetTickrate(_tickrate);
-        if (IsLocalPlayer && IsOwner)
-        {
-            _inputHandler.SetTrickRate(_tickrate);
-            _movementServer.SetTickRateServerRpc(_tickrate);
-        }
-    }
-
-    private void OnTransformStateChanged(TransformState previousValue, TransformState newValue)
-    {
-        //TODO implement new value?
     }
 
     /// <summary>
@@ -82,9 +70,28 @@ public class Movement_Client : NetworkBehaviour
     }
 
     /// <summary>
+    /// Set tickrates and local player variable.
+    /// </summary>
+    public override void OnNetworkSpawn()
+    {
+        _movement.IsLocalPlayer = IsLocalPlayer;
+        _movement.SetTickrate(_tickrate);
+        if (IsLocalPlayer && IsOwner)
+        {
+            _inputHandler.SetTrickRate(_tickrate);
+            _movementServer.SetTickRateServerRpc(_tickrate);
+        }
+    }
+
+    private void OnTransformStateChanged(TransformState previousTransformState, TransformState newTransformState)
+    {
+        //TODO implement new value?
+    }
+
+    /// <summary>
     /// Set transform based on the network variable.
     /// </summary>
-    public void ProcessSimulatedPlayerMovement()
+    private void ProcessSimulatedPlayerMovement()
     {
         if (!UpdateTick())
             return;
@@ -112,7 +119,7 @@ public class Movement_Client : NetworkBehaviour
     /// <param name="crouch">True when toggling the crouch.</param>
     /// <param name="sprint">True when sprinting.</param>
     /// <param name="jump">True when trying to jump.</param>
-    public void ProcessLocalPlayerMovement(Vector3 moveInput, Vector2 lookInput, bool crouch, bool sprint, bool jump)
+    private void ProcessLocalPlayerMovement(Vector3 moveInput, Vector2 lookInput, bool crouch, bool sprint, bool jump)
     {
         if (crouch == true && !_triedCrouchingThisTick)
             _triedCrouchingThisTick = true;
@@ -169,11 +176,13 @@ public class Movement_Client : NetworkBehaviour
     /// Updates current tickDeltaTime and checks if this frame is a tick.
     /// </summary>
     /// <returns>True if this frame is a tick.</returns>
-    public bool UpdateTick()
+    private bool UpdateTick()
     {
         _tickDeltaTime += Time.deltaTime;
         if (_tickDeltaTime <= _tickrate)
             return false;
         return true;
     }
+
+
 }

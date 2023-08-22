@@ -1,5 +1,5 @@
-using UnityEngine;
 using Unity.FPS.Game;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class Movement : MonoBehaviour

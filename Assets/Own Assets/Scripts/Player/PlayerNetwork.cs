@@ -1,10 +1,11 @@
+using Game.Managers;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Unity.Netcode;
-using System.Linq;
-using System;
-using Game;
+using Utility;
 
 public class PlayerNetwork : NetworkBehaviour
 {
@@ -35,14 +36,18 @@ public class PlayerNetwork : NetworkBehaviour
         if (IsClient && IsLocalPlayer)
         {
             PlayerInfoManager.Instance.EyesPosition = _eyesParent;
-            SetEyesLayer(_eyesParent);
+            Helper.SetLayerMask(_eyesParent, _layerMask);
             DestoryPlayerItems(_toDestroyWhenPlayer);
         } else
         {
             DestoryPlayerItems(_toDestroyWhenNotPlayer);
         }
     }
-    
+
+    /// <summary>
+    /// Destroys everything in the ComponentsToDestroy and GameObjectsToDestroy lists of the given ToDestroy object.
+    /// </summary>
+    /// <param name="toDestroy">Data object holding the lists of components and gameobjects to be destroyed.</param>
     private void DestoryPlayerItems(ToDestroy toDestroy)
     {
         List<Component> components = toDestroy.ComponentsToDestroy;
@@ -62,10 +67,5 @@ public class PlayerNetwork : NetworkBehaviour
                 DestroyImmediate(gameObject);
             }
         }
-    }
-
-    private void SetEyesLayer(Transform parent)
-    {
-        Helper.SetLayerMask(parent, _layerMask);
     }
 }

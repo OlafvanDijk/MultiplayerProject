@@ -1,7 +1,8 @@
-using System.Collections.Generic;
-using UnityEngine;
 using Game.Data;
 using Game.Events;
+using Game.Managers;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game
 {
@@ -21,6 +22,9 @@ namespace Game
             LobbyEvents.E_LobbyUpdated.RemoveListener(OnLobbyUpdated);
         }
 
+        /// <summary>
+        /// Updates the LobbyPlayers based on the LobbyPlayerData list after a lobby has been updated.
+        /// </summary>
         private void OnLobbyUpdated()
         {
             List<LobbyPlayerData> playerData = GameLobbyManager.Instance.GetPlayers();
@@ -29,7 +33,7 @@ namespace Game
             foreach (LobbyPlayerData data in playerData)
             {
                 string ID = data.ID;
-                                if (_playersJoined.ContainsKey(ID))
+                if (_playersJoined.ContainsKey(ID))
                 {
                     _playersJoined[ID].SetDataExternal(data);
                 }
@@ -42,24 +46,32 @@ namespace Game
             }
         }
 
+        /// <summary>
+        /// Checks if a player has left. If so it will reset their LobbyPlayer.
+        /// </summary>
+        /// <param name="playerData">List of all current players.</param>
         private void CheckPlayersLeft(List<LobbyPlayerData> playerData)
         {
             if (_playersJoined.Count == 0)
                 return;
 
-            List<string> playersToRemove = new();
-            foreach ((string ID, LobbyPlayer player) in _playersJoined)
+            Dictionary<string, LobbyPlayer> playersToRemove = new();
+
+            foreach (KeyValuePair<string, LobbyPlayer> player in _playersJoined)
             {
-                if (playerData.Find(pd => pd.ID.Equals(ID)) != null)
-                    return;
-                playersToRemove.Add(ID);
-                Debug.Log($"Player {player.Name} left");
+                if (playerData.Exists(pd => player.Key.Equals(pd.ID)))
+                    continue;
+                playersToRemove.Add(player.Key, player.Value);
             }
 
-            foreach (string ID in playersToRemove)
+            if (playersToRemove.Count == 0)
+                return;
+
+            foreach (KeyValuePair<string, LobbyPlayer> player in playersToRemove)
             {
-                _playersJoined[ID].PlayerLeft();
-                _playersJoined.Remove(ID);
+                player.Value.PlayerLeft();
+                Debug.Log($"{player.Value.Name} Left");
+                _playersJoined.Remove(player.Key);
             }
         }
     }

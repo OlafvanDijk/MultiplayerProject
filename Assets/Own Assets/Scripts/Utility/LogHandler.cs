@@ -1,31 +1,34 @@
-using UnityEngine;
 using Game.UI.Messaging;
+using UnityEngine;
 
-public class LogHandler : MonoBehaviour
+namespace Utility
 {
-    private void OnEnable()
+    public class LogHandler : MonoBehaviour
     {
-        Application.logMessageReceived += HandleLog;
-    }
+        private void OnEnable()
+        {
+            Application.logMessageReceived += HandleLog;
+        }
 
-    private void OnDisable()
-    {
-        Application.logMessageReceived -= HandleLog;
-    }
+        private void OnDisable()
+        {
+            Application.logMessageReceived -= HandleLog;
+        }
 
-    /// <summary>
-    /// Tracks logs and sends them to the chat with the correct message type.
-    /// </summary>
-    /// <param name="LogString"></param>
-    /// <param name="stackTrace"></param>
-    /// <param name="type"></param>
-    private void HandleLog(string LogString, string stackTrace, LogType type)
-    {
-        string message = LogString;
-        bool error = type == LogType.Error || type == LogType.Exception;
-        if (error)
-            message = $"<color=red>Error!!</color> {message}\n{stackTrace}";
-        EMessageType messageType = error ? EMessageType.Error : EMessageType.Log;
-        Chat.E_SendMessage.Invoke(message, messageType);
+        /// <summary>
+        /// Tracks logs and sends them to the chat with the correct message type.
+        /// </summary>
+        /// <param name="LogString"></param>
+        /// <param name="stackTrace"></param>
+        /// <param name="type"></param>
+        private void HandleLog(string LogString, string stackTrace, LogType type)
+        {
+            string message = LogString;
+            bool error = type == LogType.Error || type == LogType.Exception;
+            if (error)
+                message = $"<color=red>Error!!</color> {message}\n{stackTrace}";
+            EMessageType messageType = error ? EMessageType.Error : EMessageType.Log;
+            Chat.E_SendMessage.Invoke(message, messageType);
+        }
     }
 }

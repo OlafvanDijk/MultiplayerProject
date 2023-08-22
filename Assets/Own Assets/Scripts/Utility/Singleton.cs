@@ -1,29 +1,32 @@
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : Component
+namespace Utility
 {
-    private static T _instance;
-
-    public static T Instance
+    public class Singleton<T> : MonoBehaviour where T : Component
     {
-        get
+        private static T _instance;
+
+        public static T Instance
         {
-            if (_instance == null)
+            get
             {
-                T[] instances = FindObjectsOfType<T>();
-                if (instances.Length > 0)
+                if (_instance == null)
                 {
-                    _instance = instances[0];
+                    T[] instances = FindObjectsOfType<T>();
+                    if (instances.Length > 0)
+                    {
+                        _instance = instances[0];
+                    }
+                    else
+                    {
+                        GameObject gameObject = new();
+                        gameObject.name = typeof(T).Name;
+                        _instance = gameObject.AddComponent<T>();
+                        DontDestroyOnLoad(gameObject);
+                    }
                 }
-                else
-                {
-                    GameObject gameObject = new();
-                    gameObject.name = typeof(T).Name;
-                    _instance = gameObject.AddComponent<T>();
-                    DontDestroyOnLoad(gameObject);
-                }
+                return _instance;
             }
-            return _instance;
         }
     }
 }

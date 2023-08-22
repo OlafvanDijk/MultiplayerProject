@@ -1,5 +1,5 @@
-using UnityEngine.Events;
 using Unity.Services.Lobbies.Models;
+using UnityEngine.Events;
 
 namespace Game.Events
 {

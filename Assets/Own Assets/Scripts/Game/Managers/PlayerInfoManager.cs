@@ -1,13 +1,15 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Utility;
 
-namespace Game
+namespace Game.Managers
 {
+    /// <summary>
+    /// Class that will hold the players information regardless of the services used.
+    /// </summary>
     public class PlayerInfoManager : Singleton<PlayerInfoManager>
     {
         public bool IsHost;
-        public string ID;
-        public string IsReady;
         public bool LockInput;
         public string Name;
         public Transform EyesPosition;

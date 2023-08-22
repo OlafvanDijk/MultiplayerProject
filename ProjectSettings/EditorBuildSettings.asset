@@ -5,21 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/FPS/Scenes/IntroMenu.unity
-    guid: 56e3faabc5bb30f49a68bb8f1292f988
-  - enabled: 0
-    path: Assets/FPS/Scenes/WinScene.unity
-    guid: 037d06fbede2b4041a843d9ee6fe750c
-  - enabled: 0
-    path: Assets/FPS/Scenes/LoseScene.unity
-    guid: 72e5c65a45893714484002914e3fd521
-  - enabled: 0
-    path: Assets/FPS/Scenes/MainScene.unity
-    guid: d794a2ef8ba31d847ad3c19d03e2ddb9
-  - enabled: 0
-    path: Assets/FPS/Scenes/SecondaryScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Own Assets/Scenes/StartupGame/Initialisation.unity
     guid: 49d3491c1ab6afc4992d505f32a41ed3
@@ -33,9 +18,9 @@ EditorBuildSettings:
     path: Assets/Own Assets/Scenes/StartupGame/Lobby.unity
     guid: a73df5429347b3b478c02812c7c2e172
   - enabled: 1
-    path: Assets/Own Assets/Scenes/Maps/BlueMoon.unity
-    guid: 1210fa805845d78469f6629e3bb8ff12
-  - enabled: 1
     path: Assets/Own Assets/Scenes/Maps/CrimsonMoon.unity
     guid: c870921291aaa664fa43fb693362fbcd
+  - enabled: 1
+    path: Assets/Own Assets/Scenes/Maps/BlueMoon.unity
+    guid: 1210fa805845d78469f6629e3bb8ff12
   m_configObjects: {}

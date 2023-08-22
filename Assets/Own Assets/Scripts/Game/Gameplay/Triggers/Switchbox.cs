@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-using UnityEngine.Events;
 using Unity.Netcode;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace Game.Gameplay.Triggers
 {

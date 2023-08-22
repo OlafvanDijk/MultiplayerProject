@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.InputSystem;
-using Sirenix.OdinInspector;
 
 public class M_PlayerInputHandler : MonoBehaviour
 {

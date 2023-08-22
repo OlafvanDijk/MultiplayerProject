@@ -1,6 +1,6 @@
 using System;
-using Unity.Netcode;
 using Unity.Collections;
+using Unity.Netcode;
 
 namespace Game.UI.Messaging
 {

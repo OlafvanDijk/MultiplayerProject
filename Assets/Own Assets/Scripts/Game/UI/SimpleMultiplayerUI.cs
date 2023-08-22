@@ -1,13 +1,16 @@
-using Game;
+using Game.Managers;
+using Game.UI.Messaging;
 using System;
+using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
-using Unity.Netcode;
-using TMPro;
-using Game.UI.Messaging;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// Script used for a the simple multiplayer scene to test out the netcode part only.
+    /// </summary>
     public class SimpleMultiplayerUI : MonoBehaviour
     {
         [SerializeField] private Button _hostButton;

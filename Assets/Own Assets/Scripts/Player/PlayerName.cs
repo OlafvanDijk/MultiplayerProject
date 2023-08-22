@@ -1,8 +1,9 @@
-using Game;
+using Game.Managers;
 using TMPro;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
-using Unity.Collections;
+using Utility;
 
 public class PlayerName : NetworkBehaviour
 {

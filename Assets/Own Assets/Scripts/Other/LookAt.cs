@@ -1,7 +1,7 @@
-using Game;
+using Game.Managers;
+using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
-using Sirenix.OdinInspector;
 
 public class LookAt : MonoBehaviour
 {
