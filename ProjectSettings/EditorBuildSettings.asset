@@ -33,12 +33,9 @@ EditorBuildSettings:
     path: Assets/Own Assets/Scenes/StartupGame/Lobby.unity
     guid: a73df5429347b3b478c02812c7c2e172
   - enabled: 1
-    path: Assets/Own Assets/Scenes/MultiplayerSimple.unity
-    guid: 6dbd02b9438dd4a459730219ccff2d65
-  - enabled: 0
-    path: Assets/Own Assets/Scenes/Maps/CrimsonMoon.unity
-    guid: d12c2eb0fb2c76947aa52d7878a34a71
-  - enabled: 1
     path: Assets/Own Assets/Scenes/Maps/BlueMoon.unity
     guid: 1210fa805845d78469f6629e3bb8ff12
+  - enabled: 1
+    path: Assets/Own Assets/Scenes/Maps/CrimsonMoon.unity
+    guid: c870921291aaa664fa43fb693362fbcd
   m_configObjects: {}

@@ -3,6 +3,9 @@ using Unity.Services.Lobbies.Models;
 
 namespace Game.Data
 {
+    /// <summary>
+    /// Data class holding a player's lobby data.
+    /// </summary>
     public class LobbyPlayerData
     {
         private string _id;

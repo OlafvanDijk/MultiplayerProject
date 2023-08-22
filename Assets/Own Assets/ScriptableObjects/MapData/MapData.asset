@@ -16,8 +16,8 @@ MonoBehaviour:
   - MapSprite: {fileID: 21300000, guid: 9fabee6118bca68428710cf204e176f1, type: 3}
     MapName: Crimson Moon
     SceneReference:
-      sceneAsset: {fileID: 102900000, guid: 6dbd02b9438dd4a459730219ccff2d65, type: 3}
-      scenePath: Assets/Own Assets/Scenes/MultiplayerSimple.unity
+      sceneAsset: {fileID: 102900000, guid: c870921291aaa664fa43fb693362fbcd, type: 3}
+      scenePath: Assets/Own Assets/Scenes/Maps/CrimsonMoon.unity
   - MapSprite: {fileID: 21300000, guid: da796b2f87fb95f4a98bba1d350a445c, type: 3}
     MapName: Blue Moon
     SceneReference:

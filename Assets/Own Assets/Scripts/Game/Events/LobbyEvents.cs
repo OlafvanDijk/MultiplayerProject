@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
 using Unity.Services.Lobbies.Models;
 
 namespace Game.Events
 {
+    /// <summary>
+    /// All Lobby Events
+    /// </summary>
     public static class LobbyEvents
     {
         public static UnityEvent<Lobby> E_NewLobbyData = new();

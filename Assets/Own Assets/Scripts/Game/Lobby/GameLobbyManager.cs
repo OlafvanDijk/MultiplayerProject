@@ -52,10 +52,6 @@ namespace Game
         /// <returns>True if lobby has been created.</returns>
         public async Task<bool> CreateLobby()
         {
-            //Dictionary<string, string> playerData = new()
-            //{
-            //    { _playerInfoManager.Name, "HostPlayer" }
-            //};
             return await LobbyManager.Instance.CreateLobby(_maxNumberOfPlayers, true, GetLobbyPlayerData(), GetLobbyData());
         }
 
@@ -66,10 +62,6 @@ namespace Game
         /// <returns>True if lobby has been joined.</returns>
         public async Task<bool> JoinLobby(string code)
         {
-            //Dictionary<string, string> playerData = new()
-            //{
-            //    { _playerInfoManager.Name, "HostPlayer" }
-            //};
             return await LobbyManager.Instance.JoinLobby(code, GetLobbyPlayerData());
         }
 

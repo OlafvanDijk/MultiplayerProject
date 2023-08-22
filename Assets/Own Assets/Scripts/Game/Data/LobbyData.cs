@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Unity.Services.Lobbies.Models;
 
 namespace Game.Data
 {
+
+    /// <summary>
+    /// Data class that holds the lobbies mapIndex, difficulty and the relayCode.
+    /// The relaycode is only filled when the game has been started by the host.
+    /// </summary>
     class LobbyData
     {
         private int _mapIndex;

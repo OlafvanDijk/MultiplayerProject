@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-using System;
 using Unity.Netcode.Transports.UTP;
 
 namespace Game
 {
     public class GameManager : MonoBehaviour
     {
-
-
+        /// <summary>
+        /// Starts the host or client and sets the relay data.
+        /// </summary>
         private void Start()
         {
             NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
@@ -29,6 +27,11 @@ namespace Game
             }
         }
 
+        /// <summary>
+        /// Connection approval callback. This makes sure that the connection is approved and that a playerobject should always spawn.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="respone"></param>
         private void ConnectionApproval(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse respone)
         {
             respone.Approved = true;

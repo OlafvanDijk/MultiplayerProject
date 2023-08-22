@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Game
+namespace Game.GameLobby.UI
 {
     public class MainMenuUI : MonoBehaviour
     {
@@ -23,6 +23,10 @@ namespace Game
         [Header("Next Scene")]
         [SerializeField] private SceneReference _lobbyScene;
 
+        #region Unity Methods
+        /// <summary>
+        /// Add button listeners.
+        /// </summary>
         private void OnEnable()
         {
             _hostButton.onClick.AddListener(OnHostClicked);
@@ -31,6 +35,9 @@ namespace Game
             _backButton.onClick.AddListener(OnBackClicked);
         }
 
+        /// <summary>
+        /// Remove button listeners.
+        /// </summary>
         private void OnDisable()
         {
             _hostButton.onClick.RemoveListener(OnHostClicked);
@@ -38,7 +45,10 @@ namespace Game
             _joinButton.onClick.RemoveListener(OnJoinClicked);
             _backButton.onClick.RemoveListener(OnBackClicked);
         }
+        #endregion
 
+        #region Button Click Methods
+        #region Async
         /// <summary>
         /// Creates a lobby. On succeed progresses into the lobby scene.
         /// </summary>
@@ -50,6 +60,19 @@ namespace Game
             if (succeeded)
                 LoadScene.E_LoadScene.Invoke(_lobbyScene);
         }
+
+        /// <summary>
+        /// Tries to join the lobby with a code that was put into the code field.
+        /// On succeed progresses into the lobby scene.
+        /// </summary>
+        private async void OnJoinClicked()
+        {
+            string code = _codeInputField.text;
+            bool succeeded = await GameLobbyManager.Instance.JoinLobby(code);
+            if (succeeded)
+                LoadScene.E_LoadScene.Invoke(_lobbyScene);
+        }
+        #endregion
 
         /// <summary>
         /// Opens the join menu.
@@ -64,18 +87,6 @@ namespace Game
         }
 
         /// <summary>
-        /// Tries to join the lobby with a code that was put into the code field.
-        /// On succeed progresses into the lobby scene.
-        /// </summary>
-        private async void OnJoinClicked()
-        {
-            string code = _codeInputField.text;
-            bool succeeded = await GameLobbyManager.Instance.JoinLobby(code);
-            if (succeeded)
-                LoadScene.E_LoadScene.Invoke(_lobbyScene);
-        }
-
-        /// <summary>
         /// Opens the main menu again.
         /// </summary>
         private void OnBackClicked()
@@ -86,6 +97,7 @@ namespace Game
             _joinMenu.SetActive(false);
             _mainMenu.SetActive(true);
         }
+        #endregion
 
         /// <summary>
         /// Check if name has been filled in.
