@@ -1,18 +1,17 @@
+using Game.Managers;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 
-namespace Game.Managers
+namespace Game.Gameplay
 {
-    public class GameManager : MonoBehaviour
+    public class HostOrClient : MonoBehaviour
     {
         /// <summary>
-        /// Starts the host or client and sets the relay data.
+        /// Starts the host or client and set the relay data and get the PlayerID.
         /// </summary>
         private void Start()
         {
-            NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
-            NetworkManager.Singleton.ConnectionApprovalCallback = ConnectionApproval;
             if (RelayManager.Instance.IsHost)
             {
                 (byte[] allocationID, byte[] key, byte[] connectionData, string ip, int port) = RelayManager.Instance.GetHostConnectionInfo();
@@ -25,18 +24,7 @@ namespace Game.Managers
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(ip, (ushort)port, allocationID, key, connectionData, hostConnectionData, true);
                 NetworkManager.Singleton.StartClient();
             }
-        }
-
-        /// <summary>
-        /// Connection approval callback. This makes sure that the connection is approved and that a playerobject should always spawn.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="respone"></param>
-        private void ConnectionApproval(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse respone)
-        {
-            respone.Approved = true;
-            respone.CreatePlayerObject = true;
-            respone.Pending = false;
+            PlayerInfoManager.Instance.PlayerID = NetworkManager.Singleton.LocalClientId;
         }
     }
 }

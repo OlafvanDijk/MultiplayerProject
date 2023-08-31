@@ -163,10 +163,7 @@ namespace Game.UI.Messaging
             ChatMessage chatMessage = new ChatMessage();
             try
             {
-                TimeSpan timeNow = DateTime.Now.TimeOfDay;
-                string time = $"[{string.Format("{0:d2}", timeNow.Hours)}:{string.Format("{0:d2}", timeNow.Minutes)}:{string.Format("{0:d2}", timeNow.Seconds)}]";
-                chatMessage.
-                    Message = $"{time} {_playerInfoManager.Name}: {message}";
+                chatMessage.Message = $"{Helper.GetTimeFormatted()} {_playerInfoManager.Name}: {message}";
                 chatMessage.MessageType = messageType;
             }
             catch (Exception)

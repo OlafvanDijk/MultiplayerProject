@@ -42,6 +42,8 @@ namespace Game
                     LobbyPlayer player = _players.Find(p => !p.ID.Equals(ID) && !_playersJoined.ContainsKey(p.ID));
                     _playersJoined.Add(ID, player);
                     player.SetDataExternal(data);
+                    if (player.ID == PlayerInfoManager.Instance.AuthPlayerID)
+                        player.EnableCharacterSelect();
                 }
             }
         }

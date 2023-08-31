@@ -1,6 +1,7 @@
 using Game.Managers;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class LookAt : MonoBehaviour
@@ -13,6 +14,7 @@ public class LookAt : MonoBehaviour
     [SerializeField] private bool _updatePos;
 
     private Transform _lookAtTransform;
+    private PlayerInfoManager _playerInfoManager;
 
     [Serializable]
     public enum ELookAtType
@@ -24,6 +26,7 @@ public class LookAt : MonoBehaviour
 
     private void Start()
     {
+        _playerInfoManager = PlayerInfoManager.Instance;
         if (_selfInit)
             Init();
     }
@@ -39,7 +42,7 @@ public class LookAt : MonoBehaviour
                 _lookAtTransform = Camera.main.transform;
                 break;
             case ELookAtType.Player:
-                _lookAtTransform = PlayerInfoManager.Instance.EyesPosition.transform;
+                StartCoroutine(GetEyePosition());
                 break;
             default:
                 _lookAtTransform = Camera.main.transform; ;
@@ -89,6 +92,17 @@ public class LookAt : MonoBehaviour
             Vector3 euler = transform.rotation.eulerAngles;
             euler.x = 0;
             transform.rotation = Quaternion.Euler(euler);
+        }
+    }
+
+    private IEnumerator GetEyePosition()
+    {
+        yield return new WaitUntil(() => _playerInfoManager.EyesPosition);
+        _lookAtTransform = _playerInfoManager.EyesPosition;
+        if (!_updatePos)
+        {
+            DoLookAt();
+            Destroy(this);
         }
     }
 }

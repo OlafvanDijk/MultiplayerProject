@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Utility;
@@ -9,7 +10,10 @@ namespace Game.Managers
     /// </summary>
     public class PlayerInfoManager : Singleton<PlayerInfoManager>
     {
+        public string AuthPlayerID;
+        public ulong PlayerID;
         public bool IsHost;
+        public int CharacterIndex;
         public bool LockInput;
         public string Name;
         public Transform EyesPosition;

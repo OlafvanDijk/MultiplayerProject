@@ -107,18 +107,25 @@ namespace Game.Managers
         /// <returns></returns>
         public async Task LeaveLobby()
         {
-            if (_lobby == null)
-                return;
+            try
+            {
+                if (_lobby == null)
+                    return;
 
-            if (_heartbeatCoroutine != null)
-                StopCoroutine(_heartbeatCoroutine);
-            if (_refreshCoroutine != null)
-                StopCoroutine(_refreshCoroutine);
+                if (_heartbeatCoroutine != null)
+                    StopCoroutine(_heartbeatCoroutine);
+                if (_refreshCoroutine != null)
+                    StopCoroutine(_refreshCoroutine);
 
-            if (_lobby.HostId == AuthenticationService.Instance.PlayerId)
-                await LobbyService.Instance.DeleteLobbyAsync(_lobby.Id);
-            else
-                await LobbyService.Instance.RemovePlayerAsync(_lobby.Id, _player.Id);
+                if (_lobby.HostId == AuthenticationService.Instance.PlayerId)
+                    await LobbyService.Instance.DeleteLobbyAsync(_lobby.Id);
+                else
+                    await LobbyService.Instance.RemovePlayerAsync(_lobby.Id, _player.Id);
+            }
+            catch (Exception)
+            {
+                Debug.LogError("Lobby doesn't exist anymore");
+            }
             _lobby = null;
         }
 
@@ -278,11 +285,8 @@ namespace Game.Managers
 
                 //Debug.Log("Refresh");
                 Lobby newLobby = task.Result;
-                if (newLobby.LastUpdated > _lobby.LastUpdated)
-                {
-                    _lobby = newLobby;
-                    LobbyEvents.E_NewLobbyData?.Invoke(_lobby);
-                }
+                _lobby = newLobby;
+                LobbyEvents.E_NewLobbyData?.Invoke(_lobby);
 
                 yield return new WaitForSecondsRealtime(interval);
             }

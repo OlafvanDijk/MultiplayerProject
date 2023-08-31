@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Services.Lobbies.Models;
 
@@ -11,6 +12,7 @@ namespace Game.Data
         private string _id;
         private string _name;
         private bool _isReady;
+        private int _characterIndex;
 
         public string ID => _id;
         public string Name => _name;
@@ -19,11 +21,17 @@ namespace Game.Data
             get => _isReady;
             set => _isReady = value;
         }
+        public int CharacterIndex
+        {
+            get => _characterIndex;
+            set => _characterIndex = value;
+        }
 
         public void Init(string id, string name)
         {
             _id = id;
             _name = name;
+            _characterIndex = -1;
         }
 
         public void Init(Dictionary<string, PlayerDataObject> playerData)
@@ -45,7 +53,10 @@ namespace Game.Data
             {
                 _isReady = bool.Parse(playerData["IsReady"].Value);
             }
-
+            if (playerData.ContainsKey("CharacterIndex"))
+            {
+                _characterIndex = Convert.ToInt32(playerData["CharacterIndex"].Value);
+            }
         }
 
         public Dictionary<string, string> Serialize()
@@ -54,7 +65,8 @@ namespace Game.Data
             {
                 {"ID", _id },
                 {"Name", _name },
-                {"IsReady", _isReady.ToString() }
+                {"IsReady", _isReady.ToString() },
+                {"CharacterIndex", _characterIndex.ToString() }
             };
         }
     }

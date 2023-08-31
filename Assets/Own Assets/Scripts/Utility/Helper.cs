@@ -76,5 +76,37 @@ namespace Utility
         {
             GUIUtility.systemCopyBuffer = toCopy;
         }
+
+        /// <summary>
+        /// Returns time like [00:00:00]
+        /// </summary>
+        /// <returns></returns>
+        public static string GetTimeFormatted()
+        {
+            TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            return $"[{string.Format("{0:d2}", timeNow.Hours)}:{string.Format("{0:d2}", timeNow.Minutes)}:{string.Format("{0:d2}", timeNow.Seconds)}]";
+        }
+
+        /// <summary>
+        /// Add or subtract from an index and make sure it loops around.
+        /// </summary>
+        /// <param name="index">Current index.</param>
+        /// <param name="maxCount">Max of the index.</param>
+        /// <param name="nextPrevious">True for next, false for previous index.</param>
+        /// <returns>Updated index based on the nextPrevious boolean.</returns>
+        public static int SetIndex(int index, int maxCount, bool nextPrevious)
+        {
+            int additive = nextPrevious ? 1 : -1;
+            index += additive;
+            if(index < 0)
+            {
+                index = maxCount - 1;
+            } 
+            else if (index >= maxCount)
+            {
+                index = 0;
+            }
+            return index;
+        }
     }
 }

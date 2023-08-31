@@ -118,6 +118,12 @@ namespace Game.Managers
             return await LobbyManager.Instance.UpdatePlayerData(_localLobbyPlayerData.ID, _localLobbyPlayerData.Serialize());
         }
 
+        public async Task<bool> SetPlayerCharacter(int index)
+        {
+            _localLobbyPlayerData.CharacterIndex = index;
+            return await LobbyManager.Instance.UpdatePlayerData(_localLobbyPlayerData.ID, _localLobbyPlayerData.Serialize());
+        }
+
         /// <summary>
         /// Returns the lobby code.
         /// </summary>
@@ -245,7 +251,8 @@ namespace Game.Managers
         private Dictionary<string, string> GetLobbyPlayerData()
         {
             _localLobbyPlayerData = new();
-            _localLobbyPlayerData.Init(AuthenticationService.Instance.PlayerId, _playerInfoManager.Name);
+            _playerInfoManager.AuthPlayerID = AuthenticationService.Instance.PlayerId;
+            _localLobbyPlayerData.Init(_playerInfoManager.AuthPlayerID, _playerInfoManager.Name);
             return _localLobbyPlayerData.Serialize();
         }
 
