@@ -278,16 +278,23 @@ namespace Game.Managers
         /// <returns></returns>
         private IEnumerator RefreshLobbyCoroutine(float interval)
         {
+           
             while (true)
             {
                 Task<Lobby> task = LobbyService.Instance.GetLobbyAsync(_lobby.Id);
                 yield return new WaitUntil(() => task.IsCompleted);
-
-                //Debug.Log("Refresh");
-                Lobby newLobby = task.Result;
-                _lobby = newLobby;
-                LobbyEvents.E_NewLobbyData?.Invoke(_lobby);
-
+                try
+                {
+                    //Debug.Log("Refresh");
+                    Lobby newLobby = task.Result;
+                    _lobby = newLobby;
+                    LobbyEvents.E_NewLobbyData?.Invoke(_lobby);
+                }
+                catch (Exception)
+                {
+                    //Lobby has been closed.
+                }
+               
                 yield return new WaitForSecondsRealtime(interval);
             }
         }

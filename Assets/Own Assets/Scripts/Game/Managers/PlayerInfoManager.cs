@@ -14,6 +14,7 @@ namespace Game.Managers
         public ulong PlayerID;
         public bool IsHost;
         public int CharacterIndex;
+        public bool GamePaused;
         public bool LockInput;
         public string Name;
         public Transform EyesPosition;

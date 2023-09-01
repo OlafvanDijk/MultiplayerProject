@@ -1935,8 +1935,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8306156615440858631, guid: 3f0f8fea179cd624196d7722af2f66af,
         type: 3}
+      propertyPath: _timed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8306156615440858631, guid: 3f0f8fea179cd624196d7722af2f66af,
+        type: 3}
       propertyPath: _triggerOnce
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8306156615440858631, guid: 3f0f8fea179cd624196d7722af2f66af,
+        type: 3}
+      propertyPath: _maxTimeInSeconds
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8306156615440858631, guid: 3f0f8fea179cd624196d7722af2f66af,
         type: 3}

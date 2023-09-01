@@ -6,8 +6,6 @@ namespace Game.Gameplay.Triggers
 {
     public class Triggerable_Collider : Triggerable
     {
-        public UnityEvent<bool> E_OnSwitchChanged = new();
-
         private NetworkVariable<bool> _isActive = new();
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace Game.Gameplay.Triggers
 
         /// <summary>
         /// Activate or deactivates based on given bool isActive.
-        /// This is executed on both server and client.
+        /// This is executed on both server and client so that scripts relying on events can work their magic.
         /// A switchbox will destroy itself if it is not on the server.
         /// </summary>
         /// <param name="wasActive">Previous state.</param>
@@ -43,7 +41,6 @@ namespace Game.Gameplay.Triggers
             {
                 Deactivate();
             }
-            E_OnSwitchChanged.Invoke(isActive);
         }
 
         /// <summary>
@@ -52,13 +49,7 @@ namespace Game.Gameplay.Triggers
         /// <param name="other">Collider entering the trigger.</param>
         private void OnTriggerEnter(Collider other)
         {
-            if (IsServer && IsLocalPlayer)
-            {
-                _isActive.Value = true;
-                return;
-            }
-
-            OnSwitchChangedServerRpc(true);
+            OnSwitchChanged(true);
         }
 
         /// <summary>
@@ -67,13 +58,22 @@ namespace Game.Gameplay.Triggers
         /// <param name="other">Collider exiting the trigger.</param>
         private void OnTriggerExit(Collider other)
         {
+            OnSwitchChanged(false);
+        }
+
+        /// <summary>
+        /// Change the active value based on the given bool.
+        /// </summary>
+        /// <param name="active">Current active state.</param>
+        private void OnSwitchChanged(bool active)
+        {
             if (IsServer && IsLocalPlayer)
             {
-                _isActive.Value = false;
+                _isActive.Value = active;
                 return;
             }
 
-            OnSwitchChangedServerRpc(false);
+            OnSwitchChangedServerRpc(active);
         }
 
         /// <summary>
