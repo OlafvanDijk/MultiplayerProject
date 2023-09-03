@@ -1,13 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 
-public class Interactable : MonoBehaviour
+namespace Game.Gameplay
 {
-    public string InteractionText;
+    public class Interactable : MonoBehaviour
+    {
+        public string InteractionText;
 
-    public UnityEvent E_OnInteraction = new();
+        public UnityEvent E_OnInteraction = new();
 
+    }
 }

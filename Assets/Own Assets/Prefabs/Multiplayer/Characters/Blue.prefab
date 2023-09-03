@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8785018852141424189}
   - component: {fileID: 5453854525496096529}
   - component: {fileID: 838814358128959248}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: smile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8988595701057764907}
   - component: {fileID: 4176660584751672827}
   - component: {fileID: 7019950200275780922}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 6589392787771975991}
   - component: {fileID: 2451871548717474478}
   - component: {fileID: 2719086346309022376}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Eyeball_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 2223948404353321749}
   - component: {fileID: 1016220855426763401}
   - component: {fileID: 2068424888399748291}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 1198560605485050352}
   - component: {fileID: 2508800449126170095}
   - component: {fileID: 7529388501524162684}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Eyeball_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 478523965906445087}
   - component: {fileID: 8726981449589011732}
   - component: {fileID: 120693708431958945}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: smile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8060088913976815895}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 5770277294846462149}
   - component: {fileID: 7811941221844362204}
   - component: {fileID: 1799350597848224310}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 1999819728003242960}
   - component: {fileID: 8650772301530234615}
   - component: {fileID: 4292652506575345238}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -719,7 +719,7 @@ GameObject:
   - component: {fileID: 6062812687895710359}
   - component: {fileID: 6062812687895710358}
   - component: {fileID: 7945310814352350385}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -833,7 +833,7 @@ GameObject:
   - component: {fileID: 1455387962363568330}
   - component: {fileID: 7256245731068049028}
   - component: {fileID: 2600079734241250463}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pupil_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -916,7 +916,7 @@ GameObject:
   - component: {fileID: 7747179045486548925}
   - component: {fileID: 7699377530662087227}
   - component: {fileID: 8224023412364030375}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: smile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -999,7 +999,7 @@ GameObject:
   - component: {fileID: 8909864959518424357}
   - component: {fileID: 5618076384031670802}
   - component: {fileID: 7654120124020652061}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pupil_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

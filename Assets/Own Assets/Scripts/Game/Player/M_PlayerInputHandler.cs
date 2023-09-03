@@ -163,7 +163,7 @@ public class M_PlayerInputHandler : MonoBehaviour
 
     private Vector2 GetMouseOrStickLookAxis(Vector2 axis)
     {
-        bool isGamepad = PlayerNetwork.Player != null && PlayerNetwork.Player.currentControlScheme == "Gamepad";
+        bool isGamepad = SetupPlayer.Player != null && SetupPlayer.Player.currentControlScheme == "Gamepad";
 
         if (_invertYAxis)
             axis.y *= -1f;

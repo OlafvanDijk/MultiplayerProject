@@ -9,13 +9,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Utility;
 
-public class PlayerNetwork : NetworkBehaviour
+public class SetupPlayer : NetworkBehaviour
 {
     [SerializeField] private LayerMask _layerMask;
 
     [SerializeField] private PrefabCollection _characters;
-
-    [SerializeField] private NetworkObject _networkObject;
 
     [SerializeField] private ToDestroy _toDestroyWhenPlayer;
     [SerializeField] private ToDestroy _toDestroyWhenNotPlayer;

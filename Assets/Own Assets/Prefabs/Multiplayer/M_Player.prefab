@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 5233720701667838523}
   - component: {fileID: 8817479879120627461}
   - component: {fileID: 582945011177008184}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   _characters: {fileID: 11400000, guid: 463e6b03f18c3c0469f4d17406f51a8a, type: 2}
-  _networkObject: {fileID: 4837029552309263917}
   _toDestroyWhenPlayer:
     ComponentsToDestroy: []
     GameObjectsToDestroy: []
@@ -981,6 +980,7 @@ GameObject:
   - component: {fileID: 776012725664797034}
   - component: {fileID: 3933062677820192271}
   - component: {fileID: 7143751210537245551}
+  - component: {fileID: 3038162801387395192}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1107,3 +1107,22 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: df837a1f5737d5a489993708ca80ccc9, type: 2}
+--- !u!114 &3038162801387395192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8611710613161395276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7126e57d452e649bfede0688e1a1a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: {x: 0, y: 0.1, z: 0}
+  _maxDistance: 3
+  _ignoreMask:
+    serializedVersion: 2
+    m_Bits: 1100
+  _interactAction: {fileID: 6656191205003500957, guid: 4d8dd374fa6297f469a8c6816a4f4088,
+    type: 3}
