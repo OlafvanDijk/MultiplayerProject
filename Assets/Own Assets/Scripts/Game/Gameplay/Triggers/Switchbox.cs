@@ -12,15 +12,11 @@ namespace Game.Gameplay.Triggers
     {
         [SerializeField] private bool _triggerOnce;
 
-        [SerializeField] private bool _timed;
-        [SerializeField] private float _maxTimeInSeconds = 2.5f;
-
         [SerializeField] private List<Triggerable> _triggerables;
 
         public UnityEvent E_TriggerActions = new();
 
         private bool _cleanedUp;
-        private bool _withinTime;
         private Guid _timerGuid;
 
         private Dictionary<Triggerable, bool> _activatedTriggers = new();
@@ -58,25 +54,9 @@ namespace Game.Gameplay.Triggers
         /// <param name="active"></param>
         private void OnTriggerValueChange(Triggerable triggerable, bool active)
         {
-            List<bool> activated = _activatedTriggers.Values.ToList().FindAll(v => v == true);
-            int activatedCountbefore = activated.Count;
-
             _activatedTriggers[triggerable] = active;
 
-            if (_timed)
-            {
-                if(activatedCountbefore == 0 && active)
-                {
-                    _timerGuid = Timer.Instance.StartNewTimer(_maxTimeInSeconds, () => { _withinTime = false; Debug.LogError("Time Up"); });
-                } else if(activatedCountbefore == 1 && !active)
-                {
-                    if(_timerGuid != null)
-                        Timer.Instance.AbortTimer(_timerGuid);
-                    _withinTime = true;
-                }
-            }
-
-            if (!_activatedTriggers.Any(t => t.Value == false) && (_timed == false || _withinTime))
+            if (!_activatedTriggers.Any(t => t.Value == false))
                 Trigger();
         }
 

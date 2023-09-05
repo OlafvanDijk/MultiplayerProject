@@ -576,6 +576,7 @@ GameObject:
   - component: {fileID: 37993257}
   - component: {fileID: 37993256}
   - component: {fileID: 37993255}
+  - component: {fileID: 37993258}
   m_Layer: 5
   m_Name: Copy_Button
   m_TagString: Untagged
@@ -687,6 +688,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 37993253}
   m_CullTransparentMesh: 1
+--- !u!114 &37993258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37993253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d33fe34871fc249a225dbd9db3a386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doScaling: 1
+  _scaling: {x: 1.2, y: 1.2, z: 1}
+  _doHighlight: 1
+  _border: {fileID: 1535721994}
+  _highlightColor: {r: 1, g: 1, b: 1, a: 1}
+  OnButtonHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnButtonStopHighlight:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &47221197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,6 +1099,7 @@ GameObject:
   - component: {fileID: 105164106}
   - component: {fileID: 105164105}
   - component: {fileID: 105164104}
+  - component: {fileID: 105164107}
   m_Layer: 5
   m_Name: Select_Button
   m_TagString: Untagged
@@ -1118,7 +1143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1187,6 +1212,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105164102}
   m_CullTransparentMesh: 1
+--- !u!114 &105164107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105164102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d33fe34871fc249a225dbd9db3a386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doScaling: 1
+  _scaling: {x: 1.2, y: 1.2, z: 1}
+  _doHighlight: 1
+  _border: {fileID: 1113820144}
+  _highlightColor: {r: 1, g: 1, b: 1, a: 1}
+  OnButtonHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnButtonStopHighlight:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &130306013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,6 +1365,7 @@ GameObject:
   - component: {fileID: 130809106}
   - component: {fileID: 130809105}
   - component: {fileID: 130809104}
+  - component: {fileID: 130809107}
   m_Layer: 5
   m_Name: Ready_Button
   m_TagString: Untagged
@@ -1429,6 +1478,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130809102}
   m_CullTransparentMesh: 1
+--- !u!114 &130809107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130809102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d33fe34871fc249a225dbd9db3a386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doScaling: 1
+  _scaling: {x: 1.2, y: 1.2, z: 1}
+  _doHighlight: 1
+  _border: {fileID: 992854742}
+  _highlightColor: {r: 1, g: 1, b: 1, a: 1}
+  OnButtonHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnButtonStopHighlight:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &176378493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1589,6 +1661,7 @@ GameObject:
   - component: {fileID: 211362498}
   - component: {fileID: 211362497}
   - component: {fileID: 211362496}
+  - component: {fileID: 211362499}
   m_Layer: 5
   m_Name: Choose_Button
   m_TagString: Untagged
@@ -1632,7 +1705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1701,6 +1774,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 211362494}
   m_CullTransparentMesh: 1
+--- !u!114 &211362499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211362494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d33fe34871fc249a225dbd9db3a386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doScaling: 1
+  _scaling: {x: 1.2, y: 1.2, z: 1}
+  _doHighlight: 1
+  _border: {fileID: 1776438612}
+  _highlightColor: {r: 1, g: 1, b: 1, a: 1}
+  OnButtonHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnButtonStopHighlight:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &224110654
 GameObject:
   m_ObjectHideFlags: 0
@@ -4727,7 +4823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6010,6 +6106,7 @@ GameObject:
   - component: {fileID: 1544293075}
   - component: {fileID: 1544293074}
   - component: {fileID: 1544293073}
+  - component: {fileID: 1544293076}
   m_Layer: 5
   m_Name: StartGame_Button
   m_TagString: Untagged
@@ -6123,6 +6220,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1544293071}
   m_CullTransparentMesh: 1
+--- !u!114 &1544293076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544293071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d33fe34871fc249a225dbd9db3a386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doScaling: 1
+  _scaling: {x: 1.2, y: 1.2, z: 1}
+  _doHighlight: 1
+  _border: {fileID: 1382863304}
+  _highlightColor: {r: 1, g: 1, b: 1, a: 1}
+  OnButtonHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnButtonStopHighlight:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1544680896
 GameObject:
   m_ObjectHideFlags: 0
@@ -7750,7 +7870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9211,6 +9331,7 @@ GameObject:
   - component: {fileID: 2087262525}
   - component: {fileID: 2087262524}
   - component: {fileID: 2087262523}
+  - component: {fileID: 2087262526}
   m_Layer: 5
   m_Name: Leave_Button
   m_TagString: Untagged
@@ -9323,6 +9444,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087262521}
   m_CullTransparentMesh: 1
+--- !u!114 &2087262526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087262521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d33fe34871fc249a225dbd9db3a386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doScaling: 1
+  _scaling: {x: 1.2, y: 1.2, z: 1}
+  _doHighlight: 1
+  _border: {fileID: 1544680896}
+  _highlightColor: {r: 1, g: 1, b: 1, a: 1}
+  OnButtonHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnButtonStopHighlight:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2121509339
 GameObject:
   m_ObjectHideFlags: 0
