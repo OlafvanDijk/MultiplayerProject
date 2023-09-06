@@ -135,6 +135,9 @@ namespace Game.UI.Messaging
         /// <param name="show">Show the chat.</param>
         private void ShowChat(bool show)
         {
+            if(!_playerInfoManager)
+                _playerInfoManager = PlayerInfoManager.Instance;
+
             _chatMainObject.SetActive(show);
             _chatShown = show;
             _playerInfoManager.LockInput = show;

@@ -280,6 +280,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   _characters: {fileID: 11400000, guid: 463e6b03f18c3c0469f4d17406f51a8a, type: 2}
+  _movement: {fileID: 5233720701667838523}
   _toDestroyWhenPlayer:
     ComponentsToDestroy: []
     GameObjectsToDestroy: []
@@ -528,6 +529,7 @@ MonoBehaviour:
   _inputHandler: {fileID: 1965868097568565991}
   _movement: {fileID: 8817479879120627461}
   _movementServer: {fileID: 4601898690416322187}
+  _meshFilterColor: {r: 0, g: 1, b: 0.7991171, a: 0.5372549}
 --- !u!114 &8817479879120627461
 MonoBehaviour:
   m_ObjectHideFlags: 0
