@@ -60,12 +60,11 @@ public static class BuildSceneShortcuts {
 		CheckBuildIndex(8);
 	}
 	
-	[MenuItem("Tools/Load Scene/Loads the best scene ever %#&9")]
+	[MenuItem("Tools/Load Scene/Load Scene at Build Index 9 %#&9")]
 	private static void LoadSceneNine()
 	{
-		EditorSceneManager.SaveOpenScenes();
-		EditorSceneManager.OpenScene("Assets/Scenes_Test/TestScene_Olaf.unity");
-	}
+        CheckBuildIndex(9);
+    }
 
 	private static void CheckBuildIndex(int index)
 	{

@@ -1,17 +1,14 @@
 using Game.Managers;
-using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Utility;
 
 namespace Game.UI.Messaging
 {
-    public class Chat : NetworkBehaviour
+    public class Chat : MonoBehaviour
     {
         [Header("Input")]
         [SerializeField] private InputActionReference _submitAction;
@@ -29,28 +26,22 @@ namespace Game.UI.Messaging
 
         public bool IsActive;
 
-        public static UnityEvent<string, EMessageType> E_SendMessage = new();
-
         private bool _chatShown;
         private ChatTab _currentTab;
-
-        private NetworkVariable<ChatMessage> _message = new();
 
         private PlayerInfoManager _playerInfoManager;
 
         #region Add Listeners
-        public override void OnNetworkSpawn()
+        private void Awake()
         {
             _playerInfoManager = PlayerInfoManager.Instance;
             GenerateTabs();
-            E_SendMessage.AddListener(OnSendMessage);
-            _message.OnValueChanged += OnMessageChanged;
+            MessageHandler.E_MessageRecieved.AddListener(ShowMessage);
         }
 
-        public override void OnNetworkDespawn()
+        private void OnDestroy()
         {
-            E_SendMessage.RemoveListener(OnSendMessage);
-            _message.OnValueChanged -= OnMessageChanged;
+            MessageHandler.E_MessageRecieved.RemoveListener(ShowMessage);
             _playerInfoManager.LockInput = false;
         }
 
@@ -160,39 +151,14 @@ namespace Game.UI.Messaging
         /// <param name="messageType">Type of the message.</param>
         private void OnSendMessage(string message, EMessageType messageType)
         {
-            ChatMessage chatMessage = new ChatMessage();
-            try
-            {
-                chatMessage.Message = $"{Helper.GetTimeFormatted()} {_playerInfoManager.Name}: {message}";
-                chatMessage.MessageType = messageType;
-            }
-            catch (Exception)
-            {
-                //Message was too big so we don't log it
-                //Otherwise we'll create an infinite loop as the log will also come through here.
-                return;
-            }
-
             if (messageType == EMessageType.Log || messageType == EMessageType.Error || messageType == EMessageType.Local)
             {
-                ShowMessage(chatMessage);
+                ShowMessage(message, messageType);
             }
             else
             {
-                SendMessageServerRpc(chatMessage);
+                MessageHandler.E_SendMessage.Invoke(message, messageType);
             }
-        }
-
-        /// <summary>
-        /// On message networkvariable value change show it in the chat.
-        /// </summary>
-        /// <param name="previousMessage"></param>
-        /// <param name="newMessage"></param>
-        private void OnMessageChanged(ChatMessage previousMessage, ChatMessage newMessage)
-        {
-            if (IsServer && !IsClient)
-                return;
-            ShowMessage(newMessage);
         }
 
         /// <summary>
@@ -200,12 +166,12 @@ namespace Game.UI.Messaging
         /// If no tab was found then message will be put in the global tab.
         /// </summary>
         /// <param name="message">Message to display.</param>
-        public void ShowMessage(ChatMessage message)
+        public void ShowMessage(string message, EMessageType messageType)
         {
-            if (message.MessageType == EMessageType.Error && !_chatShown)
+            if (messageType == EMessageType.Error && !_chatShown)
                 ShowChat(true);
 
-            List<ChatTab> avaiableTabs = tabs.FindAll(t => t.MessageTypes.ContainsAnyFlags(message.MessageType));
+            List<ChatTab> avaiableTabs = tabs.FindAll(t => t.MessageTypes.ContainsAnyFlags(messageType));
             if (avaiableTabs.Count == 0)
                 avaiableTabs.Add(tabs.Find(t => t.MessageTypes.HasFlag(EMessageType.Global)));
 
@@ -233,16 +199,6 @@ namespace Game.UI.Messaging
             if (_currentTab != null)
                 _currentTab.HideTab();
             _currentTab = tab;
-        }
-
-        /// <summary>
-        /// Sets the message networkvariable value, updating all clients with the new message.
-        /// </summary>
-        /// <param name="chatMessage"></param>
-        [ServerRpc(RequireOwnership = false)]
-        private void SendMessageServerRpc(ChatMessage chatMessage)
-        {
-            _message.Value = chatMessage;
         }
     }
 }

@@ -44,11 +44,11 @@ namespace Game.UI.Messaging
             _button.onClick.AddListener(OnClickTab);
         }
 
-        public void AddMessage(ChatMessage message)
+        public void AddMessage(string message)
         {
             GameObject messageObject = Object.Instantiate(_messagePrefab, _content);
             TextMeshProUGUI chatMessage = messageObject.GetComponent<TextMeshProUGUI>();
-            chatMessage.text = message.Message.ToString();
+            chatMessage.text = message;
             _messages.Add(messageObject);
             messageObject.SetActive(true);
 

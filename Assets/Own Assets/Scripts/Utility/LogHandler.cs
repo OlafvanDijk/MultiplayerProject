@@ -28,7 +28,7 @@ namespace Utility
             if (error)
                 message = $"<color=red>Error!!</color> {message}\n{stackTrace}";
             EMessageType messageType = error ? EMessageType.Error : EMessageType.Log;
-            Chat.E_SendMessage.Invoke(message, messageType);
+            MessageHandler.E_SendMessage.Invoke(message, messageType);
         }
     }
 }
