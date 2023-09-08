@@ -375,6 +375,14 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public void TeleportPlayer(TransformState state)
+    {
+        _controller.enabled = false;
+        transform.position = state.Position;
+        transform.rotation = state.Rotation;
+        _controller.enabled = true;
+    }
+
     /// <summary>
     /// Handles the movement on the ground and checks for jumps and footsteps.
     /// </summary>

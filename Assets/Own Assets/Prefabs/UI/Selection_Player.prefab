@@ -136,8 +136,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91d33fe34871fc249a225dbd9db3a386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DoScaling: 1
-  Scaling: {x: 1.2, y: 1.2, z: 1}
+  _doScaling: 1
+  _scaling: {x: 1.2, y: 1.2, z: 1}
+  _doHighlight: 0
+  _border: {fileID: 0}
+  _highlightColor: {r: 1, g: 1, b: 1, a: 1}
   OnButtonHighlight:
     m_PersistentCalls:
       m_Calls:
@@ -914,8 +917,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91d33fe34871fc249a225dbd9db3a386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DoScaling: 1
-  Scaling: {x: 1.2, y: 1.2, z: 1}
+  _doScaling: 1
+  _scaling: {x: 1.2, y: 1.2, z: 1}
+  _doHighlight: 0
+  _border: {fileID: 0}
+  _highlightColor: {r: 1, g: 1, b: 1, a: 1}
   OnButtonHighlight:
     m_PersistentCalls:
       m_Calls:
