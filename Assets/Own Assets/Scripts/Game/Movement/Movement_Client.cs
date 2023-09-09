@@ -220,11 +220,12 @@ public class Movement_Client : NetworkBehaviour
         int bufferIndex = _tick % BUFFER_SIZE;
 
         TransformState transformState = Helper.TransformState(_tick, transform.position, transform.rotation, true);
-        Move(transformState, moveInput, lookInput, _triedCrouchingThisTick, _triedSprintingThisTick, _triedJumpingThisTick);
-
         InputState inputState = new InputState(_tick, moveInput, lookInput, _triedCrouchingThisTick, _triedSprintingThisTick, _triedJumpingThisTick);
+        
         _inputStates[bufferIndex] = inputState;
         _transformStates[bufferIndex] = transformState;
+
+        Move(transformState, moveInput, lookInput, _triedCrouchingThisTick, _triedSprintingThisTick, _triedJumpingThisTick);
 
         _tickDeltaTime -= _tickrate;
         _tick++;

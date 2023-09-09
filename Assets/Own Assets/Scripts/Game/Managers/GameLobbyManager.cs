@@ -81,19 +81,30 @@ namespace Game.Managers
             _inGame = true;
 
             _lobbyData.RelayJoinCode = relayJoinCode;
-            await LobbyManager.Instance.UpdateLobbyData(_lobbyData.Serialize());
+            await LobbyManager.Instance.UpdateLobbyData(_lobbyData.Serialize(), true);
 
             await UpdatePlayerDataOnJoinGame();
             LoadScene.E_LoadSceneWithPath.Invoke(scenePath);
         }
 
         /// <summary>
-        /// Leaves the lobby.
+        /// Leaves the lobby and resets the lobby data and variables.
         /// </summary>
         /// <returns></returns>
         public async Task LeaveLobby()
         {
             await LobbyManager.Instance.LeaveLobby();
+            CleanUp();
+        }
+
+        /// <summary>
+        /// Leaves the relay and then the lobby.
+        /// </summary>
+        /// <returns></returns>
+        public async Task LeaveGame()
+        {
+            await RelayManager.Instance.LeaveRelay();
+            await LeaveLobby();
         }
 
         /// <summary>
@@ -265,6 +276,20 @@ namespace Game.Managers
             _lobbyData = new LobbyData();
             _lobbyData.Initialize(0, "Easy");   //TODO Get default difficulty from somewhere
             return _lobbyData.Serialize();
+        }
+
+        /// <summary>
+        /// Cleans up all game depending variables.
+        /// </summary>
+        private void CleanUp()
+        {
+            _playerInfoManager.CleanUp();
+            _inGame = false;
+            _lobbyReady = false;
+
+            _lobbyData = default;
+            _localLobbyPlayerData = default;
+            _lobbyPlayerData = new();
         }
         #endregion
     }

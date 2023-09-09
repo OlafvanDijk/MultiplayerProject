@@ -208,6 +208,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""ae671e52-bbad-435e-aa0f-867d2a4e4fca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -815,6 +824,28 @@ namespace UnityEngine.InputSystem
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e48ca509-4d4e-40da-82cc-492ea49312c6"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a4ad44c0-c1a7-4943-a581-df7bbcb14fe5"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1420,6 +1451,7 @@ namespace UnityEngine.InputSystem
             m_Player_Inventory_8 = m_Player.FindAction("Inventory_8", throwIfNotFound: true);
             m_Player_Inventory_9 = m_Player.FindAction("Inventory_9", throwIfNotFound: true);
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+            m_Player_PauseGame = m_Player.FindAction("PauseGame", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1513,6 +1545,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Inventory_8;
         private readonly InputAction m_Player_Inventory_9;
         private readonly InputAction m_Player_Interact;
+        private readonly InputAction m_Player_PauseGame;
         public struct PlayerActions
         {
             private @InputActions m_Wrapper;
@@ -1537,6 +1570,7 @@ namespace UnityEngine.InputSystem
             public InputAction @Inventory_8 => m_Wrapper.m_Player_Inventory_8;
             public InputAction @Inventory_9 => m_Wrapper.m_Player_Inventory_9;
             public InputAction @Interact => m_Wrapper.m_Player_Interact;
+            public InputAction @PauseGame => m_Wrapper.m_Player_PauseGame;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1606,6 +1640,9 @@ namespace UnityEngine.InputSystem
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @PauseGame.started += instance.OnPauseGame;
+                @PauseGame.performed += instance.OnPauseGame;
+                @PauseGame.canceled += instance.OnPauseGame;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1670,6 +1707,9 @@ namespace UnityEngine.InputSystem
                 @Interact.started -= instance.OnInteract;
                 @Interact.performed -= instance.OnInteract;
                 @Interact.canceled -= instance.OnInteract;
+                @PauseGame.started -= instance.OnPauseGame;
+                @PauseGame.performed -= instance.OnPauseGame;
+                @PauseGame.canceled -= instance.OnPauseGame;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1872,6 +1912,7 @@ namespace UnityEngine.InputSystem
             void OnInventory_8(InputAction.CallbackContext context);
             void OnInventory_9(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnPauseGame(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

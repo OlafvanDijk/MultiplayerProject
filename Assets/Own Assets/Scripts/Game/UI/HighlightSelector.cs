@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class HighlightSelector : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private bool _doScaling = true;
-    [ShowIf(nameof(_doScaling))] [SerializeField] private Vector3 _scaling = new(1.2f, 1.2f, 1f);
+    [ShowIf(nameof(_doScaling))] [SerializeField] private Vector3 _scaling = new(1.1f, 1.1f, 1f);
     [SerializeField] private bool _doHighlight = true;
     [ShowIf(nameof(_doHighlight))][SerializeField] private GameObject _border;
     [ShowIf(nameof(_doHighlight))] [SerializeField] private Color _highlightColor = Color.white;

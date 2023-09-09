@@ -1419,7 +1419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _doScaling: 1
-  _scaling: {x: 1.2, y: 1.2, z: 1}
+  _scaling: {x: 1.1, y: 1.1, z: 1}
   _doHighlight: 1
   _border: {fileID: 360681952}
   _highlightColor: {r: 1, g: 1, b: 1, a: 1}
@@ -2630,7 +2630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _doScaling: 1
-  _scaling: {x: 1.2, y: 1.2, z: 1}
+  _scaling: {x: 1.1, y: 1.1, z: 1}
   _doHighlight: 1
   _border: {fileID: 1918588562}
   _highlightColor: {r: 1, g: 1, b: 1, a: 1}
@@ -3632,7 +3632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _doScaling: 1
-  _scaling: {x: 1.2, y: 1.2, z: 1}
+  _scaling: {x: 1.1, y: 1.1, z: 1}
   _doHighlight: 1
   _border: {fileID: 49720710}
   _highlightColor: {r: 1, g: 1, b: 1, a: 1}
@@ -3932,7 +3932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _doScaling: 1
-  _scaling: {x: 1.2, y: 1.2, z: 1}
+  _scaling: {x: 1.1, y: 1.1, z: 1}
   _doHighlight: 1
   _border: {fileID: 2011033066}
   _highlightColor: {r: 1, g: 1, b: 1, a: 1}

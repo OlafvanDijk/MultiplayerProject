@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Unity.Netcode;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using Utility;
@@ -72,6 +73,25 @@ namespace Game.Managers
             _ip = dtlsEndpoint.Host;
             _port = dtlsEndpoint.Port;
             return true;
+        }
+
+        /// <summary>
+        /// Leaves relay and cleans up the variables to be used again.
+        /// </summary>
+        /// <returns></returns>
+        public async Task LeaveRelay()
+        {
+            NetworkManager.Singleton.Shutdown(true);
+            _isHost = false;
+            _relayJoinCode = default;
+            _ip = default;
+            _port = default;
+            _key = default;
+            _allocationID = default;
+            _allocationIDBytes = default;
+            _hostconnectionData = default;
+            _connectionData = default;
+            await Task.Delay(100);
         }
 
         public (byte[] allocationID, byte[] key, byte[] connectionData, string ip, int port) GetHostConnectionInfo()

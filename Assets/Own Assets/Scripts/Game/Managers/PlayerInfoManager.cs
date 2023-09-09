@@ -26,5 +26,17 @@ namespace Game.Managers
             Name = name;
             E_OnNameChange.Invoke(Name);
         }
+
+        /// <summary>
+        /// Cleanup game related variables.
+        /// </summary>
+        public void CleanUp()
+        {
+            PlayerID = default;
+            IsHost = false;
+            CharacterIndex = 0;
+            GamePaused = false;
+            LockInput = false;
+        }
     }
 }

@@ -175,14 +175,16 @@ namespace Game.Managers
         /// <summary>
         /// Updates lobby data.
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">Lobby Data to serialize.</param>
+        /// /// <param name="isLocked">True if lobby should be locked.</param>
         /// <returns></returns>
-        public async Task<bool> UpdateLobbyData(Dictionary<string, string> data)
+        public async Task<bool> UpdateLobbyData(Dictionary<string, string> data, bool isLocked = false)
         {
             Dictionary<string, DataObject> lobbyData = SerializeLobbyData(data);
             UpdateLobbyOptions options = new()
             {
-                Data = lobbyData
+                Data = lobbyData,
+                IsLocked = isLocked
             };
 
             try
