@@ -1,3 +1,4 @@
+using Game.Managers;
 using Unity.FPS.Game;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,13 +7,13 @@ public class Movement : MonoBehaviour
 {
     [Header("References")]
     [Tooltip("Reference to the main camera used for the player")]
-    [SerializeField] private Camera _playerCamera;
+    public Camera PlayerCamera;
 
     [Tooltip("Reference to the player's actor.")]
     [SerializeField] private Actor _actor;
 
     [Tooltip("Reference to the player's health.")]
-    [SerializeField] private Health _health;
+    [SerializeField] private M_Health _health;
 
     [Tooltip("Reference to the audiosource playing all the player's sounds.")]
     [SerializeField] private AudioSource _audioSource;
@@ -20,8 +21,8 @@ public class Movement : MonoBehaviour
     [Tooltip("Reference to the character controller used for moving the player around.")]
     [SerializeField] private CharacterController _controller;
 
-    //[Tooltip("Reference to the weapons manager.")]
-    //[SerializeField] private PlayerWeaponsManager _weaponsManager;
+    [Tooltip("Reference to the weapons manager.")]
+    [SerializeField] private M_PlayerWeaponsManager _weaponsManager;
 
 
     [Header("General")]
@@ -132,16 +133,15 @@ public class Movement : MonoBehaviour
     public bool HasJumpedThisFrame { get; private set; }
     public bool IsDead { get; private set; }
     public bool IsCrouching { get; private set; }
+    public float MaxSpeedOnGround => _maxSpeedOnGround;
+    public float SprintSpeedModifier => _sprintSpeedModifier;
 
     public float RotationMultiplier
     {
         get
         {
-            //if (_weaponsManager.IsAiming)
-            //{
-            //    return AimingRotationMultiplier;
-            //}
-
+            if (_weaponsManager.IsAiming)
+                return _aimingRotationMultiplier;
             return 1f;
         }
     }
@@ -162,7 +162,7 @@ public class Movement : MonoBehaviour
     public void Awake()
     {
         _controller.enableOverlapRecovery = true;
-        _health.OnDie += OnDie;
+        _health.OnDie.AddListener(OnDie);
         SetCrouchingState(false, true);
         UpdateCharacterHeight(true);
     }
@@ -248,7 +248,7 @@ public class Movement : MonoBehaviour
             if (_recievesFallDamage && fallSpeedRatio > 0f)
             {
                 float dmgFromFall = Mathf.Lerp(_fallDamageAtMinSpeed, _fallDamageAtMaxSpeed, fallSpeedRatio);
-                _health.TakeDamage(dmgFromFall, null); //TODO Do something so that the client also sees that they are getting damaged
+                _health.TakeDamage(dmgFromFall);
                 if(IsLocalPlayer)
                     _audioSource.PlayOneShot(_fallDamageSfx);
             }
@@ -322,7 +322,7 @@ public class Movement : MonoBehaviour
             _controller.center = Vector3.up * _controller.height * 0.5f;
             _actor.AimPoint.transform.localPosition = _controller.center;
             if (IsLocalPlayer)
-                _playerCamera.transform.localPosition = Vector3.up * _targetCharacterHeight * _cameraHeightRatio;
+                PlayerCamera.transform.localPosition = Vector3.up * _targetCharacterHeight * _cameraHeightRatio;
         }
         else if (_controller.height != _targetCharacterHeight)
         {
@@ -331,7 +331,7 @@ public class Movement : MonoBehaviour
             _actor.AimPoint.transform.localPosition = _controller.center;
             if (IsLocalPlayer)
             {
-                _playerCamera.transform.localPosition = Vector3.Lerp(_playerCamera.transform.localPosition,
+                PlayerCamera.transform.localPosition = Vector3.Lerp(PlayerCamera.transform.localPosition,
                     Vector3.up * _targetCharacterHeight * _cameraHeightRatio, _crouchingSharpness * _tickrate);
             }
         }
@@ -515,6 +515,6 @@ public class Movement : MonoBehaviour
     {
         _cameraVerticalAngle -= verticalLook * _rotationSpeed * RotationMultiplier;
         _cameraVerticalAngle = Mathf.Clamp(_cameraVerticalAngle, _verticalCameraMaxAgles.x, _verticalCameraMaxAgles.y);
-        _playerCamera.transform.localEulerAngles = new Vector3(_cameraVerticalAngle, 0, 0);
+        PlayerCamera.transform.localEulerAngles = new Vector3(_cameraVerticalAngle, 0, 0);
     }
 }

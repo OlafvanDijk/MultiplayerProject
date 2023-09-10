@@ -134,7 +134,7 @@ namespace Game.Managers
             }
             catch (Exception)
             {
-                Debug.LogError("Lobby doesn't exist anymore");
+                // Lobby doesn't exist anymore.
             }
             _lobby = null;
         }

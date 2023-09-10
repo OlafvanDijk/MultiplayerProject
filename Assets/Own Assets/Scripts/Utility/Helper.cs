@@ -1,12 +1,44 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Utility
 {
     public static class Helper
     {
+        /// <summary>
+        /// Creates Server Params with the playerID as the SenderClientId.
+        /// </summary>
+        /// <returns></returns>
+        public static ServerRpcParams CreateServerRpcParams(ulong clientID)
+        {
+            return new ServerRpcParams()
+            {
+                Receive = new ServerRpcReceiveParams() { SenderClientId = clientID }
+            };
+        }
+
+        /// <summary>
+        /// Creates Client Params with the SenderClientID as only target.
+        /// </summary>
+        /// <param name="serverRpcParams"></param>
+        /// <returns></returns>
+        public static ClientRpcParams CreateClientRpcParams(ServerRpcParams serverRpcParams)
+        {
+            return new ClientRpcParams()
+            {
+                Send = new ClientRpcSendParams()
+                {
+                    TargetClientIds = new ulong[]
+                    {
+                        serverRpcParams.Receive.SenderClientId
+                    }
+                }
+            };
+        }
+
         /// <summary>
         /// Easier way of creating a TransformState as TransformState cannot have a constructor 
         /// due to it being serialized for network usage.
