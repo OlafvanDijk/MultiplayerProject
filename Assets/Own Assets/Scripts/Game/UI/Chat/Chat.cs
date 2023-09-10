@@ -133,7 +133,7 @@ namespace Game.UI.Messaging
             _chatShown = show;
             _playerInfoManager.LockInput = show;
             Cursor.visible = show;
-            Cursor.lockState = show ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.lockState = show ? CursorLockMode.Confined : CursorLockMode.Locked;
 
             if (show)
             {

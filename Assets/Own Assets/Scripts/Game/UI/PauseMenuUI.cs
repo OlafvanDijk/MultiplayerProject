@@ -26,7 +26,6 @@ public class PauseMenuUI : MonoBehaviour
     private async void OnLeaveGame()
     {
         await GameLobbyManager.Instance.LeaveGame();
-        LoadScene.E_LoadScene.Invoke(_mainMenu);
     }
 
     public void ToggleMenu()
@@ -48,7 +47,7 @@ public class PauseMenuUI : MonoBehaviour
         _cursorLockModeBefore = Cursor.lockState;
 
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.Confined;
 
         _returnButton.onClick.AddListener(ToggleMenu);
         _sequence?.Kill(true);

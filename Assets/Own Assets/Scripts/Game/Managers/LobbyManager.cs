@@ -7,14 +7,18 @@ using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using UnityEngine.Events;
 using Utility;
 
 namespace Game.Managers
 {
     public class LobbyManager : Singleton<LobbyManager>
     {
+        public UnityEvent E_ConnectionLost = new();
+
         private Lobby _lobby;
         private Player _player;
+        private LobbyEventCallbacks _lobbyCallbacks;
 
         private Coroutine _heartbeatCoroutine;
         private Coroutine _refreshCoroutine;
@@ -89,6 +93,12 @@ namespace Game.Managers
             try
             {
                 _lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code, options);
+                _lobbyCallbacks = new();
+                _lobbyCallbacks.LobbyDeleted += async delegate 
+                {
+                    await GameLobbyManager.Instance.LeaveGame();
+                };
+                await LobbyService.Instance.SubscribeToLobbyEventsAsync(_lobby.Id, _lobbyCallbacks);
             }
             catch (Exception e)
             {
@@ -163,8 +173,11 @@ namespace Game.Managers
             {
                 _lobby = await LobbyService.Instance.UpdatePlayerAsync(_lobby.Id, playerID, options);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.LogError("Updating player data went wrong");
+                Debug.LogError(e.Message);
+                E_ConnectionLost.Invoke();
                 return false;
             }
 
@@ -195,6 +208,7 @@ namespace Game.Managers
             {
                 Debug.LogError("Updating lobby data went wrong");
                 Debug.LogError(e.Message);
+                E_ConnectionLost.Invoke();
                 return false;
             }
 

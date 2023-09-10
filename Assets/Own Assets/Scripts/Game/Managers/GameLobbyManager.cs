@@ -26,6 +26,8 @@ namespace Game.Managers
         private bool _lobbyReady;
         private readonly int _maxNumberOfPlayers = 4;
 
+        private LobbyManager _lobbyManager;
+        private RelayManager _relayManager;
         private PlayerInfoManager _playerInfoManager;
 
         private LobbyData _lobbyData;
@@ -35,7 +37,10 @@ namespace Game.Managers
         #region Unity Methods
         private void Awake()
         {
+            _lobbyManager = LobbyManager.Instance;
+            _relayManager = RelayManager.Instance;
             _playerInfoManager = PlayerInfoManager.Instance;
+            _lobbyManager.E_ConnectionLost.AddListener(OnConnectionLost);
         }
 
         private void OnEnable()
@@ -56,7 +61,7 @@ namespace Game.Managers
         /// <returns>True if lobby has been created.</returns>
         public async Task<bool> CreateLobby()
         {
-            return await LobbyManager.Instance.CreateLobby(_maxNumberOfPlayers, true, GetLobbyPlayerData(), GetLobbyData());
+            return await _lobbyManager.CreateLobby(_maxNumberOfPlayers, true, GetLobbyPlayerData(), GetLobbyData());
         }
 
         /// <summary>
@@ -66,7 +71,7 @@ namespace Game.Managers
         /// <returns>True if lobby has been joined.</returns>
         public async Task<bool> JoinLobby(string code)
         {
-            return await LobbyManager.Instance.JoinLobby(code, GetLobbyPlayerData());
+            return await _lobbyManager.JoinLobby(code, GetLobbyPlayerData());
         }
 
         /// <summary>
@@ -77,11 +82,11 @@ namespace Game.Managers
         /// <returns></returns>
         public async Task StartGame(string scenePath)
         {
-            string relayJoinCode = await RelayManager.Instance.CreateRelay(_maxNumberOfPlayers);
+            string relayJoinCode = await _relayManager.CreateRelay(_maxNumberOfPlayers);
             _inGame = true;
 
             _lobbyData.RelayJoinCode = relayJoinCode;
-            await LobbyManager.Instance.UpdateLobbyData(_lobbyData.Serialize(), true);
+            await _lobbyManager.UpdateLobbyData(_lobbyData.Serialize(), true);
 
             await UpdatePlayerDataOnJoinGame();
             LoadScene.E_LoadSceneWithPath.Invoke(scenePath);
@@ -93,7 +98,7 @@ namespace Game.Managers
         /// <returns></returns>
         public async Task LeaveLobby()
         {
-            await LobbyManager.Instance.LeaveLobby();
+            await _lobbyManager.LeaveLobby();
             CleanUp();
         }
 
@@ -103,8 +108,11 @@ namespace Game.Managers
         /// <returns></returns>
         public async Task LeaveGame()
         {
-            await RelayManager.Instance.LeaveRelay();
+            await _relayManager.LeaveRelay();
             await LeaveLobby();
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            LoadScene.E_LoadSceneWithBuildIndex.Invoke(2);
         }
 
         /// <summary>
@@ -116,7 +124,7 @@ namespace Game.Managers
         public async Task<bool> SetSelectedMap(int mapIndex, string difficulty)
         {
             _lobbyData.Initialize(mapIndex, difficulty);
-            return await LobbyManager.Instance.UpdateLobbyData(_lobbyData.Serialize());
+            return await _lobbyManager.UpdateLobbyData(_lobbyData.Serialize());
         }
 
         /// <summary>
@@ -126,13 +134,13 @@ namespace Game.Managers
         public async Task<bool> SetPlayerReady()
         {
             _localLobbyPlayerData.IsReady = !_localLobbyPlayerData.IsReady;
-            return await LobbyManager.Instance.UpdatePlayerData(_localLobbyPlayerData.ID, _localLobbyPlayerData.Serialize());
+            return await _lobbyManager.UpdatePlayerData(_localLobbyPlayerData.ID, _localLobbyPlayerData.Serialize());
         }
 
         public async Task<bool> SetPlayerCharacter(int index)
         {
             _localLobbyPlayerData.CharacterIndex = index;
-            return await LobbyManager.Instance.UpdatePlayerData(_localLobbyPlayerData.ID, _localLobbyPlayerData.Serialize());
+            return await _lobbyManager.UpdatePlayerData(_localLobbyPlayerData.ID, _localLobbyPlayerData.Serialize());
         }
 
         /// <summary>
@@ -141,7 +149,7 @@ namespace Game.Managers
         /// <returns>Lobby code.</returns>
         public string GetLobbyCode()
         {
-            return LobbyManager.Instance.GetLobbyCode();
+            return _lobbyManager.GetLobbyCode();
         }
 
         /// <summary>
@@ -170,7 +178,7 @@ namespace Game.Managers
         /// <param name="lobby">Updated lobby.</param>
         private async void OnLobbyUpdated(Lobby lobby)
         {
-            List<Dictionary<string, PlayerDataObject>> playerData = LobbyManager.Instance.GetPlayersData();
+            List<Dictionary<string, PlayerDataObject>> playerData = _lobbyManager.GetPlayersData();
             _lobbyPlayerData.Clear();
             Debug.Log($"Amount of players: {playerData.Count}");
             string playerID = AuthenticationService.Instance.PlayerId;
@@ -216,7 +224,7 @@ namespace Game.Managers
         /// <returns></returns>
         private async Task JoinRelayServer(string relayJoinCode)
         {
-            await RelayManager.Instance.JoinRelay(relayJoinCode);
+            await _relayManager.JoinRelay(relayJoinCode);
             _inGame = true;
             await UpdatePlayerDataOnJoinGame();
         }
@@ -227,9 +235,9 @@ namespace Game.Managers
         /// <returns></returns>
         private async Task UpdatePlayerDataOnJoinGame()
         {
-            string allocationID = RelayManager.Instance.AllocationID;
-            string connectionData = RelayManager.Instance.ConnectionData;
-            await LobbyManager.Instance.UpdatePlayerData(_localLobbyPlayerData.ID, _localLobbyPlayerData.Serialize(), allocationID, connectionData);
+            string allocationID = _relayManager.AllocationID;
+            string connectionData = _relayManager.ConnectionData;
+            await _lobbyManager.UpdatePlayerData(_localLobbyPlayerData.ID, _localLobbyPlayerData.Serialize(), allocationID, connectionData);
         }
 
         /// <summary>
@@ -276,6 +284,14 @@ namespace Game.Managers
             _lobbyData = new LobbyData();
             _lobbyData.Initialize(0, "Easy");   //TODO Get default difficulty from somewhere
             return _lobbyData.Serialize();
+        }
+
+        /// <summary>
+        /// On connection lost leave the game.
+        /// </summary>
+        private async void OnConnectionLost()
+        {
+            await LeaveGame();
         }
 
         /// <summary>

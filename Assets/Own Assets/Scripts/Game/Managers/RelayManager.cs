@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
+using UnityEngine;
 using Utility;
 
 namespace Game.Managers
@@ -81,7 +82,16 @@ namespace Game.Managers
         /// <returns></returns>
         public async Task LeaveRelay()
         {
-            NetworkManager.Singleton.Shutdown(true);
+            try
+            {
+                NetworkManager.Singleton.Shutdown(true);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Something went wrong leaving the relay.");
+                Debug.LogError(e);
+            }
+            
             _isHost = false;
             _relayJoinCode = default;
             _ip = default;
