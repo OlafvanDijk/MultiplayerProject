@@ -162,7 +162,7 @@ public class Movement : MonoBehaviour
     public void Awake()
     {
         _controller.enableOverlapRecovery = true;
-        _health.OnDie.AddListener(OnDie);
+        _health.E_OnDie.AddListener(OnDie);
         SetCrouchingState(false, true);
         UpdateCharacterHeight(true);
     }

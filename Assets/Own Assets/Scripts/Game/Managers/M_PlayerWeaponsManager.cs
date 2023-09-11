@@ -1,3 +1,4 @@
+using Game.Gameplay;
 using System.Collections.Generic;
 using Unity.FPS.Game;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.Events;
 
 namespace Game.Managers
 {
+    //TODO Show current weapon on every client.
+
     public class M_PlayerWeaponsManager : MonoBehaviour
     {
         public enum WeaponSwitchState
@@ -16,7 +19,7 @@ namespace Game.Managers
         }
 
         [Tooltip("List of weapon the player will start with.")]
-        [SerializeField] private List<WeaponController> _startingWeapons = new List<WeaponController>();
+        [SerializeField] private List<M_WeaponController> _startingWeapons = new List<M_WeaponController>();
 
         [Header("References")]
         [Tooltip("Reference to the script that handles the movement.")]
@@ -87,12 +90,12 @@ namespace Game.Managers
         public int ActiveWeaponIndex { get; private set; }
 
 
-        public UnityEvent<WeaponController> E_OnSwitchedToWeapon = new();
-        public UnityEvent<WeaponController, int> E_OnAddedWeapon = new();
-        public UnityEvent<WeaponController, int> E_OnRemovedWeapon = new();
+        public UnityEvent<M_WeaponController> E_OnSwitchedToWeapon = new();
+        public UnityEvent<M_WeaponController, int> E_OnAddedWeapon = new();
+        public UnityEvent<M_WeaponController, int> E_OnRemovedWeapon = new();
 
 
-        private WeaponController[] _weaponSlots = new WeaponController[9]; // 9 available weapon slots
+        private M_WeaponController[] _weaponSlots = new M_WeaponController[9]; // 9 available weapon slots
         
         private float _weaponBobFactor;
 
@@ -117,7 +120,7 @@ namespace Game.Managers
             SetFov(_defaultFov);
             E_OnSwitchedToWeapon.AddListener(OnWeaponSwitched);
 
-            foreach (WeaponController weapon in _startingWeapons)
+            foreach (M_WeaponController weapon in _startingWeapons)
             {
                 AddWeapon(weapon);
             }
@@ -132,7 +135,7 @@ namespace Game.Managers
         {
             if (_playerInfoManager.LockInput)
                 return;
-            WeaponController activeWeapon = GetActiveWeapon();
+            M_WeaponController activeWeapon = GetActiveWeapon();
 
             if (activeWeapon != null && activeWeapon.IsReloading)
                 return;
@@ -163,7 +166,7 @@ namespace Game.Managers
         /// </summary>
         /// <param name="activeWeapon"></param>
         /// <returns>False when a reload has started. This will block the other actions.</returns>
-        private bool HandleShooting(WeaponController activeWeapon)
+        private bool HandleShooting(M_WeaponController activeWeapon)
         {
             if (activeWeapon != null && _weaponSwitchState == WeaponSwitchState.Up)
             {
@@ -193,7 +196,7 @@ namespace Game.Managers
         /// Switches weapon based on what kind of switch input was used.
         /// </summary>
         /// <param name="activeWeapon"></param>
-        private void HandleWeaponSwitching(WeaponController activeWeapon)
+        private void HandleWeaponSwitching(M_WeaponController activeWeapon)
         {
             if (!IsAiming &&
                 (activeWeapon == null || !activeWeapon.IsCharging) &&
@@ -221,7 +224,7 @@ namespace Game.Managers
         /// Sets IsPointingAtEnemy at true when pointing at an object that has the Health Component.
         /// </summary>
         /// <param name="activeWeapon"></param>
-        private void HandlePointAtEnemy(WeaponController activeWeapon)
+        private void HandlePointAtEnemy(M_WeaponController activeWeapon)
         {
             IsPointingAtEnemy = false;
             if (activeWeapon)
@@ -290,7 +293,7 @@ namespace Game.Managers
                     _weaponSwitchState = WeaponSwitchState.PutUpNew;
                     ActiveWeaponIndex = _weaponSwitchNewWeaponIndex;
 
-                    WeaponController newWeapon = GetWeaponAtSlotIndex(_weaponSwitchNewWeaponIndex);
+                    M_WeaponController newWeapon = GetWeaponAtSlotIndex(_weaponSwitchNewWeaponIndex);
                     if (E_OnSwitchedToWeapon != null)
                     {
                         E_OnSwitchedToWeapon.Invoke(newWeapon);
@@ -308,12 +311,12 @@ namespace Game.Managers
         /// </summary>
         /// <param name="weaponPrefab"></param>
         /// <returns>Weapon that is in our inventory. Returns null if we don't have it.</returns>
-        public WeaponController HasWeapon(WeaponController weaponPrefab)
+        public M_WeaponController HasWeapon(M_WeaponController weaponPrefab)
         {
             // Checks if we already have a weapon coming from the specified prefab
             for (int index = 0; index < _weaponSlots.Length; index++)
             {
-                WeaponController weapon = _weaponSlots[index];
+                M_WeaponController weapon = _weaponSlots[index];
                 if (weapon != null && weapon.SourcePrefab == weaponPrefab.gameObject)
                 {
                     return weapon;
@@ -330,7 +333,7 @@ namespace Game.Managers
         {
             if (_weaponSwitchState == WeaponSwitchState.Up)
             {
-                WeaponController activeWeapon = GetActiveWeapon();
+                M_WeaponController activeWeapon = GetActiveWeapon();
                 if (IsAiming && activeWeapon)
                 {
                     _weaponMainLocalPosition = Vector3.Lerp(_weaponMainLocalPosition,
@@ -425,7 +428,7 @@ namespace Game.Managers
             {
                 if (_weaponSwitchState == WeaponSwitchState.PutDownPrevious)
                 {
-                    WeaponController oldWeapon = GetWeaponAtSlotIndex(ActiveWeaponIndex);
+                    M_WeaponController oldWeapon = GetWeaponAtSlotIndex(ActiveWeaponIndex);
                     if (oldWeapon != null)
                     {
                         oldWeapon.ShowWeapon(false);
@@ -434,7 +437,7 @@ namespace Game.Managers
                     ActiveWeaponIndex = _weaponSwitchNewWeaponIndex;
                     switchingTimeFactor = 0f;
 
-                    WeaponController newWeapon = GetWeaponAtSlotIndex(ActiveWeaponIndex);
+                    M_WeaponController newWeapon = GetWeaponAtSlotIndex(ActiveWeaponIndex);
                     if (E_OnSwitchedToWeapon != null)
                     {
                         E_OnSwitchedToWeapon.Invoke(newWeapon);
@@ -474,7 +477,7 @@ namespace Game.Managers
         /// </summary>
         /// <param name="weaponPrefab"></param>
         /// <returns></returns>
-        public bool AddWeapon(WeaponController weaponPrefab)
+        public bool AddWeapon(M_WeaponController weaponPrefab)
         {
             if (HasWeapon(weaponPrefab) != null)
                 return false;
@@ -484,7 +487,7 @@ namespace Game.Managers
                 if (_weaponSlots[i] != null)
                     continue;
 
-                WeaponController weaponInstance = Instantiate(weaponPrefab, _weaponParentSocket);
+                M_WeaponController weaponInstance = Instantiate(weaponPrefab, _weaponParentSocket);
                 weaponInstance.transform.localPosition = Vector3.zero;
                 weaponInstance.transform.localRotation = Quaternion.identity;
 
@@ -516,7 +519,7 @@ namespace Game.Managers
         /// </summary>
         /// <param name="weaponInstance"></param>
         /// <returns></returns>
-        public bool RemoveWeapon(WeaponController weaponInstance)
+        public bool RemoveWeapon(M_WeaponController weaponInstance)
         {
             // Look through our slots for that weapon
             for (int i = 0; i < _weaponSlots.Length; i++)
@@ -547,7 +550,7 @@ namespace Game.Managers
         /// Returns the active weapons controller.
         /// </summary>
         /// <returns></returns>
-        public WeaponController GetActiveWeapon()
+        public M_WeaponController GetActiveWeapon()
         {
             return GetWeaponAtSlotIndex(ActiveWeaponIndex);
         }
@@ -557,7 +560,7 @@ namespace Game.Managers
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public WeaponController GetWeaponAtSlotIndex(int index)
+        public M_WeaponController GetWeaponAtSlotIndex(int index)
         {
             if (index >= 0 && index < _weaponSlots.Length)
                 return _weaponSlots[index];
@@ -598,7 +601,7 @@ namespace Game.Managers
         /// Show the given weapon on switch.
         /// </summary>
         /// <param name="newWeapon"></param>
-        private void OnWeaponSwitched(WeaponController newWeapon)
+        private void OnWeaponSwitched(M_WeaponController newWeapon)
         {
             if (newWeapon != null)
             {
