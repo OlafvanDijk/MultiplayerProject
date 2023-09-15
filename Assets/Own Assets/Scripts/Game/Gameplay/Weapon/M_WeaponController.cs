@@ -1,9 +1,10 @@
+using Game.Gameplay.Weapons.Projectiles;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Game.Gameplay
+namespace Game.Gameplay.Weapons
 {
     public enum WeaponShootType
     {

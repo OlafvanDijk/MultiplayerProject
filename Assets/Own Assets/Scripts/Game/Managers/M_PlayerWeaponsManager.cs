@@ -1,6 +1,6 @@
 using Game.Gameplay;
+using Game.Gameplay.Weapons;
 using System.Collections.Generic;
-using Unity.FPS.Game;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -88,6 +88,7 @@ namespace Game.Managers
         public bool IsAiming { get; private set; }
         public bool IsPointingAtEnemy { get; private set; }
         public int ActiveWeaponIndex { get; private set; }
+        public Camera WeaponCamera => _weaponCamera;
 
 
         public UnityEvent<M_WeaponController> E_OnSwitchedToWeapon = new();

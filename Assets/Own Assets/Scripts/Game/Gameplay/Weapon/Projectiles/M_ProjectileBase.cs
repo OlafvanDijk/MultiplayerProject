@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Game.Gameplay
+namespace Game.Gameplay.Weapons.Projectiles
 {
     public abstract class M_ProjectileBase : MonoBehaviour
     {
